@@ -5,8 +5,7 @@
 @implementation AppleWallet
 
 - (void)echo:(CDVInvokedUrlCommand*)command {
-    NSString* phrase = [command.arguments objectAtIndex: 0];
-    NSLog(@"%@", phrase);
+    NSLog(@"Hola World!");
 }
 
 @end
