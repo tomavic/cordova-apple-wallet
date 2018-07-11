@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="cordova-apple-wallet" version="1.0.0">
+
+    <name>AppleWallet</name>
+    <description>This plugin allows you to add passes and credit cards to Apple Wallet</description>
+    <author>TOoma | Designes</author>
+    <keywords>Apple,Wallet,iOS</keywords>
+    <license>Apache 2.0</license>
+    <engines>
+        <engine name="cordova" version=">=3.0.0" />
+    </engines>
+
+
+
+    <!-- ios -->
+    <platform name="ios">
+
+        <config-file target="config.xml" parent="/*">
+            <feature name="AppleWallet">
+                <param name="ios-package" value="CDVAppleWallet"/>
+            </feature>
+        </config-file>
+
+        <js-module src="www/appleWallet.js" name="AppleWallet">
+            <clobbers target="AppleWallet" />
+        </js-module>
+
+        <header-file src="src/ios/CDVAppleWallet.h" />
+        <source-file src="src/ios/CDVAppleWallet.m" />
+    
+        <framework src="PassKit.framework" />
+
+    </platform>
+
+</plugin>
