@@ -4,8 +4,7 @@ const PLUGIN_NAME = 'AppleWallet';
 
 var AppleWallet = {
     echo : function(phrase, cb) {
-//         exec(cb, null, PLUGIN_NAME, [phrase]);
-        exec(cb, null, PLUGIN_NAME, []);
+        exec(cb, null, PLUGIN_NAME, [phrase]);
     }
 }
 
