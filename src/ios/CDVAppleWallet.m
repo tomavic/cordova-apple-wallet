@@ -23,31 +23,34 @@
         pluginResult =[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"incorrect number of arguments"];
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     } else {
-            // Options
-            NSDictionary* options = [arguments objectAtIndex:0]; // Configuration
-            PKAddPaymentPassRequestConfiguration* configuration = [[PKAddPaymentPassRequestConfiguration alloc] initWithEncryptionScheme:PKEncryptionSchemeECC_V2];
-            configuration.cardholderName = [options objectForKey:@"cardholderName"]; // The name of the person the card is issued to
-            configuration.primaryAccountSuffix = [options objectForKey:@"primaryAccountSuffix"]; // Last 4/5 digits of PAN. The last four or five digits of the PAN. Presented to the user with dots prepended to indicate that it is a suffix.
-            configuration.localizedDescription = [options objectForKey:@"localizedDescription"]; // A short description of the card.
-            configuration.primaryAccountIdentifier = [options objectForKey:@"primaryAccountIdentifier"]; // Filters the device and attached devices that already have this card provisioned. No filter is applied if the parameter is omitted
-            // Filters the networks shown in the introduction view to this single network.
-            NSString* paymentNetwork = [options objectForKey:@"paymentNetwork"]; if([[paymentNetwork uppercaseString] isEqualToString:@"VISA"]) {
-                configuration.paymentNetwork = PKPaymentNetworkVisa; }
-            if([[paymentNetwork uppercaseString] isEqualToString:@"MASTERCARD"]) { configuration.paymentNetwork = PKPaymentNetworkMasterCard;
-            }
-            // Present view controller
+        // Options
+        NSDictionary* options = [arguments objectAtIndex:0]; // Configuration
+        PKAddPaymentPassRequestConfiguration* configuration = [[PKAddPaymentPassRequestConfiguration alloc] initWithEncryptionScheme:PKEncryptionSchemeECC_V2];
+        configuration.cardholderName = [options objectForKey:@"cardholderName"]; // The name of the person the card is issued to
+        configuration.primaryAccountSuffix = [options objectForKey:@"primaryAccountSuffix"]; // Last 4/5 digits of PAN. The last four or five digits of the PAN. Presented to the user with dots prepended to indicate that it is a suffix.
+        configuration.localizedDescription = [options objectForKey:@"localizedDescription"]; // A short description of the card.
+        configuration.primaryAccountIdentifier = [options objectForKey:@"primaryAccountIdentifier"]; // Filters the device and attached devices that already have this card provisioned. No filter is applied if the parameter is omitted
+        
+        // Filters the networks shown in the introduction view to this single network.
+        NSString* paymentNetwork = [options objectForKey:@"paymentNetwork"]; 
+        if([[paymentNetwork uppercaseString] isEqualToString:@"VISA"]) {
+            configuration.paymentNetwork = PKPaymentNetworkVisa; 
+        }
+        if([[paymentNetwork uppercaseString] isEqualToString:@"MASTERCARD"]) { 
+            configuration.paymentNetwork = PKPaymentNetworkMasterCard;
+        }
+
+        // Present view controller
         self.viewController = [[PKAddPaymentPassViewController alloc] initWithRequestConfiguration:configuration delegate:self];
         if(!self.viewController) {
-                pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"MISSING_ENTITLEME NTS"];
-                [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-            } else {
-                pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_NO_RESULT];
-                [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
-                self.transactionCallbackId = command.callbackId;
-                [self.viewController presentViewController:self.viewController animated:YES completion:^{
-                        [self.commandDelegate sendPluginResult:pluginResult callbackId:self.transactionCallbackId];
-                }];
-            }
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"MISSING_ENTITLEME NTS"];
+            [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+        } else {
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_NO_RESULT];
+            [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
+            self.transactionCallbackId = command.callbackId;
+            [self.viewController presentViewController:self.viewController animated:YES completion:^{[self.commandDelegate sendPluginResult:pluginResult callbackId:self.transactionCallbackId];}];
+        }
     }
 }
 
