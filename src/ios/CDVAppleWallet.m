@@ -4,8 +4,9 @@
 
 @implementation AppleWallet
 
-- (void)echo:(CDVInvokedUrlCommand*)command {
-    NSLog(@"Hola World!");
+- (void)startAddPaymentPass:(CDVInvokedUrlCommand*)command
+{
+    NSLog(@"LOG start startAddPaymentPass");
 }
 
 @end

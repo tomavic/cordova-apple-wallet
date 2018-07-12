@@ -4,7 +4,7 @@
 
 }
 
-- (void)echo:(CDVInvokedUrlCommand*)command;
+- (void)startAddPaymentPass:(CDVInvokedUrlCommand*)command;
 
 
 @end

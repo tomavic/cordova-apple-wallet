@@ -1,11 +1,32 @@
 var exec = require('cordova/exec');
+var PLUGIN_NAME = 'AppleWallet';
 
-const PLUGIN_NAME = 'AppleWallet';
+
+var executeCallback = function(callback, message) {
+    if (typeof callback === 'function') {
+        callback(message);
+    }
+};
 
 var AppleWallet = {
-    echo : function(phrase, cb) {
-        exec(cb, null, PLUGIN_NAME, [phrase]);
-    }
+
+    /**
+     * Determines if the current device supports Apple Pay and has a supported card installed.
+     * @param {Function} [successCallback] - Optional success callback, recieves message object.
+     * @param {Function} [errorCallback] - Optional error callback, recieves message object.
+     * @returns {Promise}
+     */
+    startAddPaymentPass: function(successCallback, errorCallback) {
+        return new Promise(function(resolve, reject) {
+            exec(function(message) {
+                executeCallback(successCallback, message);
+                resolve(message);
+            }, function(message) {
+                executeCallback(errorCallback, message);
+                reject(message);
+            }, PLUGIN_NAME, 'startAddPaymentPass', []);
+        });
+    },
 }
 
 module.exports = AppleWallet;
