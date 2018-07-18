@@ -21,39 +21,6 @@ Or the latest (unstable) version:
 
 **Preparing Examples**
 
-```javascript
-    AppleWallet.downloadPass('https://d.pslot.io/cQY2f', function (pass, added) {
-        console.log(pass, added);
-        if (added) {
-            AppleWallet.openPass(pass);
-        } else {
-            alert('Please add the pass');
-        }
-    }, function (error) {
-        console.error(error);
-    });
-```
-
-### Adding Headers
-
-```javascript
-
-   var callData =  {
-                    "url":'https://d.pslot.io/cQY2f',
-                    "headers":{ "authorization": "Bearer <token>" }
-                  };
-
-    AppleWallet.downloadPass(callData, function (pass, added) {
-        console.log(pass, added);
-        if (added) {
-            AppleWallet.openPass(pass);
-        } else {
-            alert('Please add the pass');
-        }
-    }, function (error) {
-        console.error(error);
-    });
-```
 
 ## Documentation
 
