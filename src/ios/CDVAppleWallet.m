@@ -2,9 +2,15 @@
 #import <Cordova/CDV.h>
 #import <PassKit/PassKit.h>
 
+//typedef void (^AddPassResultBlock)();
 
 @interface AppleWallet()<PKAddPaymentPassViewControllerDelegate>
 
+@property (nonatomic, strong) NSString* completionHandler; // Need to verify this type
+@property (nonatomic, strong) NSString* stringFromData; // Need to verify this type
+@property (nonatomic, copy) NSString* transactionCallbackId; // Need to verify this type
+@property (nonatomic, copy) NSString* completionCallbackId; // Need to verify this type
+@property (nonatomic, strong) UIViewController* pkviewController; // Need to verify this type
 @end
 
 
@@ -41,7 +47,6 @@
         NSDictionary* options = [arguments objectAtIndex:0]; 
         
         PKAddPaymentPassRequestConfiguration* configuration = [[PKAddPaymentPassRequestConfiguration alloc] initWithEncryptionScheme:PKEncryptionSchemeRSA_V2];
-        
         // The name of the person the card is issued to
         configuration.cardholderName = [options objectForKey:@"cardholderName"];
 
@@ -68,19 +73,21 @@
         [libra openPaymentSetup];
 
 
-        // PKAddPaymentPassViewController *vc = [[PKAddPaymentPassViewController alloc] initWithRequestConfiguration:configuration delegate:self];
-        // vc.delegate = self;
+         PKAddPaymentPassViewController *vc = [[PKAddPaymentPassViewController alloc] initWithRequestConfiguration:configuration delegate:self];
+         vc.delegate = self;
+        [vc presentViewController:vc animated:YES completion:^{[self.commandDelegate sendPluginResult:pluginResult callbackId:self.transactionCallbackId];}];
 
         // Present view controller
-        self.viewController = [[PKAddPaymentPassViewController alloc] initWithRequestConfiguration:configuration delegate:self];
-        if(!self.viewController) {
-            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"MISSING_ENTITLEME NTS"];
+        // self.viewController = [[PKAddPaymentPassViewController alloc] initWithRequestConfiguration:configuration delegate:self];
+        
+        if(!vc) {
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"MISSING_ENTITLEMENTS"];
             [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
         } else {
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_NO_RESULT];
             [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
             self.transactionCallbackId = command.callbackId;
-            [self.viewController presentViewController:self.viewController animated:YES completion:^{[self.commandDelegate sendPluginResult:pluginResult callbackId:self.transactionCallbackId];}];
+            [vc presentViewController:vc animated:YES completion:^{[self.commandDelegate sendPluginResult:pluginResult callbackId:self.transactionCallbackId];}];
         }
 
     }
@@ -125,8 +132,9 @@
 
 - (void)completeAddPaymentPass:(CDVInvokedUrlCommand*)command 
 {
-    NSLog(@"LOG start completeAddPaymentPass"); CDVPluginResult* pluginResult;
+    NSLog(@"LOG start completeAddPaymentPass");
     /*
+     CDVPluginResult* pluginResult;
     NSArray* arguments = command.arguments;
     if ([arguments count] != 1){
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"incorrect number of arguments"];
