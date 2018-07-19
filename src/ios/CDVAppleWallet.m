@@ -3,14 +3,15 @@
 #import <PassKit/PassKit.h>
 
 //typedef void (^AddPassResultBlock)();
+typedef void (^completionHand)(PKAddPaymentPassRequest *request);
 
 @interface AppleWallet()<PKAddPaymentPassViewControllerDelegate>
 
-@property (nonatomic, strong) NSString* completionHandler; // Need to verify this type
+@property (nonatomic, strong) completionHand completionHandler; // Need to verify this type
 @property (nonatomic, strong) NSString* stringFromData; // Need to verify this type
 @property (nonatomic, copy) NSString* transactionCallbackId; // Need to verify this type
 @property (nonatomic, copy) NSString* completionCallbackId; // Need to verify this type
-@property (nonatomic, strong) UIViewController* pkviewController; // Need to verify this type
+@property (nonatomic, retain) UIViewController* addPaymentPassModal; // Need to verify this type
 @end
 
 
@@ -69,25 +70,30 @@
         }
 
 
-        PKPassLibrary *libra = [[PKPassLibrary alloc] init];
-        [libra openPaymentSetup];
+//        PKPassLibrary *libra = [[PKPassLibrary alloc] init];
+//        [libra openPaymentSetup];
 
 
-         PKAddPaymentPassViewController *vc = [[PKAddPaymentPassViewController alloc] initWithRequestConfiguration:configuration delegate:self];
-         vc.delegate = self;
-        [vc presentViewController:vc animated:YES completion:^{[self.commandDelegate sendPluginResult:pluginResult callbackId:self.transactionCallbackId];}];
+         //PKAddPaymentPassViewController *vc = [[PKAddPaymentPassViewController alloc] initWithRequestConfiguration:configuration delegate:self];
+         //vc.delegate = self;
+         //NSLog(@"hola vc %@", vc);
 
         // Present view controller
-        // self.viewController = [[PKAddPaymentPassViewController alloc] initWithRequestConfiguration:configuration delegate:self];
+        self.addPaymentPassModal = [[PKAddPaymentPassViewController alloc] initWithRequestConfiguration:configuration delegate:self];
+        NSLog(@"hola vc %@", self.addPaymentPassModal);
         
-        if(!vc) {
+        
+        if(!self.addPaymentPassModal) {
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"MISSING_ENTITLEMENTS"];
             [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
         } else {
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_NO_RESULT];
             [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
             self.transactionCallbackId = command.callbackId;
-            [vc presentViewController:vc animated:YES completion:^{[self.commandDelegate sendPluginResult:pluginResult callbackId:self.transactionCallbackId];}];
+            [self.addPaymentPassModal presentViewController:self.addPaymentPassModal animated:YES completion:^{
+                [self.commandDelegate sendPluginResult:pluginResult callbackId:self.transactionCallbackId];
+                }
+             ];
         }
 
     }
@@ -104,37 +110,48 @@
                                     generateRequestWithCertificateChain:(NSArray<NSData *> *)certificates
                                     nonce:(NSData *)nonce
                                     nonceSignature:(NSData *)nonceSignature
-                                    completionHandler:(void (^)(PKAddPaymentPassRequest * request))handler
+                                    completionHandler:(void (^)(PKAddPaymentPassRequest *request))handler
 {
-    NSLog(@"addPaymentPassViewController");
-    /*
-    completionHandler:(void(^)(PKAddPaymentPassRequest *request))handler NSLog(@"LOG start addPaymentPassViewController");
+    NSLog(@"LOG start addPaymentPassViewController");
+    
+    //completionHandler:(void(^)(PKAddPaymentPassRequest *request))handler;
     
     // save completion handler
-    self.completionHandler = handler;
-    NSLog(@"%@", NSStringFromClass([self.completionHandler class]));
+//    self.completionHandler = handler;
+//    NSLog(@"%@", NSStringFromClass([self.completionHandler class]));
     
     NSData* cert0 = [certificates objectAtIndex:0];
     NSData* cert1 = [certificates objectAtIndex:1];
-
-    NSString* sCertificateLeaf = [self stringFromData:cert0 asBase64:CERT_DATA_AS_BASE64];
-    NSString* sCertificateSubCA = [self stringFromData:cert1 asBase64:CERT_DATA_AS_BASE64];
-    NSString* sNonce = [self stringFromData:nonce asBase64:NONCE_DATA_AS_BASE64];
-    NSString* sNonceSignature = [self stringFromData:nonceSignature asBase64:NONCE_DATA_AS_BASE64];
-    NSDictionary* dictionary = @{ @"data" : @{@"certificateLeaf" : sCertificateLeaf, @"certificateSubCA" : sCertificateSubCA, @"nonce" : sNonce,@"nonceSignature" : sNonceSignature, }};
+    
+//    NSString* sCertificateLeaf = [self stringFromData:cert0 asBase64:CERT_DATA_AS_BASE64];
+//    NSString* sCertificateSubCA = [self stringFromData:cert1 asBase64:CERT_DATA_AS_BASE64];
+//    NSString* sNonce = [self stringFromData:nonce asBase64:NONCE_DATA_AS_BASE64];
+//    NSString* sNonceSignature = [self stringFromData:nonceSignature asBase64:NONCE_DATA_AS_BASE64];
+    
+    NSDictionary* dictionary = @{
+                                 @"data" : @{
+                                         @"certificateLeaf" : certificates,
+                                         @"certificateSubCA" : certificates,
+                                         @"nonce" : nonce,
+                                         @"nonceSignature" : nonceSignature,
+                                         }
+                                 };
     
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:dictionary];
     [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:self.transactionCallbackId];
-    */
+    
 }
 
++ (NSString* ) stringFromData:(NSData *)somedata {
+    return @"This is string from data";
+}
 
 - (void)completeAddPaymentPass:(CDVInvokedUrlCommand*)command 
 {
     NSLog(@"LOG start completeAddPaymentPass");
-    /*
-     CDVPluginResult* pluginResult;
+    
+    CDVPluginResult* pluginResult;
     NSArray* arguments = command.arguments;
     if ([arguments count] != 1){
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"incorrect number of arguments"];
@@ -149,20 +166,26 @@
         NSLog(@" LOG%@", encryptionKey); NSLog(@" LOG%@", encryptedPassData);
         NSLog(@" LOG%@", activationData);
     
-        request.ephemeralPublicKey = [NSData dataWithHexString:encryptionKey];
-        request.encryptedPassData = [NSData dataWithHexString:encryptedPassData];
-        request.activationData = [self dataFromString:activationData fromBase64:YES];
+//        request.ephemeralPublicKey = [NSData dataWithHexString:encryptionKey];
+//        request.encryptedPassData = [NSData dataWithHexString:encryptedPassData];
+//        request.activationData = [self dataFromString:activationData fromBase64:YES];
     
-        NSLog(@" A LOG%@", request.ephemeralPublicKey); NSLog(@" A LOG%@", request.encryptedPassData);
+        NSLog(@" A LOG%@", request.ephemeralPublicKey);
+        NSLog(@" A LOG%@", request.encryptedPassData);
         NSLog(@" A LOG%@", request.activationData);
         
         // Send result
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_NO_RESULT];
-        [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]]; self.completionCallbackId = command.callbackId;
+        [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
+        self.completionCallbackId = command.callbackId;
         [self.commandDelegate sendPluginResult:pluginResult callbackId:self.completionCallbackId]; // Issue request
-        OCF_DISPATCH_MAIN_QUEUE_ALWAYS(^{NSLog(@"LOG ocf OCF_DISPATCH_MAIN_QUEUE_ALWAYS ");self.completionHandler(request); });
+        
+//        OCF_DISPATCH_MAIN_QUEUE_ALWAYS(^{
+//            NSLog(@"LOG ocf OCF_DISPATCH_MAIN_QUEUE_ALWAYS ");
+//            self.completionHandler(request);
+//        });
     }
-    */
+    
 }
 
 
