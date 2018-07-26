@@ -21,7 +21,7 @@ typedef void (^completionHand)(PKAddPaymentPassRequest *request);
 + (BOOL)canAddPaymentPass 
 {
     //What is the required logic to do to know if the app can add cards to Apple Pay?
-    return true;
+    return [PKAddPaymentPassViewController canAddPaymentPass];
 }
 
 - (void)available:(CDVInvokedUrlCommand*)command
@@ -81,6 +81,9 @@ typedef void (^completionHand)(PKAddPaymentPassRequest *request);
         // Present view controller
         self.addPaymentPassModal = [[PKAddPaymentPassViewController alloc] initWithRequestConfiguration:configuration delegate:self];
         NSLog(@"hola vc %@", self.addPaymentPassModal);
+        
+        
+//        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:viewcontroller animated:YES completion:nil];
         
         
         if(!self.addPaymentPassModal) {
