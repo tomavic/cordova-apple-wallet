@@ -93,8 +93,9 @@ typedef void (^completionHand)(PKAddPaymentPassRequest *request);
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_NO_RESULT];
             [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
             self.transactionCallbackId = command.callbackId;
-            [self.addPaymentPassModal presentViewController:self.addPaymentPassModal animated:YES completion:^{
-                [self.commandDelegate sendPluginResult:pluginResult callbackId:self.transactionCallbackId];
+            [self.viewcontroller presentViewController:self.addPaymentPassModal animated:YES completion:^
+                {
+                    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.transactionCallbackId];
                 }
              ];
         }
