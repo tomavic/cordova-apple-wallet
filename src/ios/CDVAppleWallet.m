@@ -72,8 +72,7 @@ typedef void (^completionHand)(PKAddPaymentPassRequest *request);
 
 //        PKPassLibrary *libra = [[PKPassLibrary alloc] init];
 //        [libra openPaymentSetup];
-
-
+//        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:viewcontroller animated:YES completion:nil];
          //PKAddPaymentPassViewController *vc = [[PKAddPaymentPassViewController alloc] initWithRequestConfiguration:configuration delegate:self];
          //vc.delegate = self;
          //NSLog(@"hola vc %@", vc);
@@ -81,9 +80,6 @@ typedef void (^completionHand)(PKAddPaymentPassRequest *request);
         // Present view controller
         self.addPaymentPassModal = [[PKAddPaymentPassViewController alloc] initWithRequestConfiguration:configuration delegate:self];
         NSLog(@"hola vc %@", self.addPaymentPassModal);
-        
-        
-//        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:viewcontroller animated:YES completion:nil];
         
         
         if(!self.addPaymentPassModal) {
@@ -107,7 +103,8 @@ typedef void (^completionHand)(PKAddPaymentPassRequest *request);
                                     didFinishAddingPaymentPass:(PKPaymentPass *)pass
                                     error:(NSError *)error
 {
-    NSLog(@"addPaymentPassViewController");
+    NSLog(@"addPaymentPassViewController didFinishAddingPaymentPass");
+    [controller dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)addPaymentPassViewController:(PKAddPaymentPassViewController *)controller
@@ -116,13 +113,13 @@ typedef void (^completionHand)(PKAddPaymentPassRequest *request);
                                     nonceSignature:(NSData *)nonceSignature
                                     completionHandler:(void (^)(PKAddPaymentPassRequest *request))handler
 {
-    NSLog(@"LOG start addPaymentPassViewController");
+    NSLog(@"generateRequestWithCertificateChain delegate");
     
     //completionHandler:(void(^)(PKAddPaymentPassRequest *request))handler;
     
     // save completion handler
-//    self.completionHandler = handler;
-//    NSLog(@"%@", NSStringFromClass([self.completionHandler class]));
+    //    self.completionHandler = handler;
+    //    NSLog(@"%@", NSStringFromClass([self.completionHandler class]));
     
     NSData* cert0 = [certificates objectAtIndex:0];
     NSData* cert1 = [certificates objectAtIndex:1];
