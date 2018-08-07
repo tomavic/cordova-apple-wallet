@@ -1,3 +1,9 @@
+/**
+ * 7/8/2018
+ * @author Hatem 
+ * @implementation file
+ */
+
 #import "CDVAppleWallet.h"
 #import <Cordova/CDV.h>
 #import <PassKit/PassKit.h>
