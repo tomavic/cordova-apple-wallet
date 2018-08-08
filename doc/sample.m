@@ -29,6 +29,17 @@ Determining if Payment Passes Can Be Added
     config.localizedDescription = self.cardInfo.name;
     config.paymentNetwork = PKPaymentNetworkVisa; // config.paymentNetwork = PKPaymentNetworkMasterCard;
 
+//////////
+         //PKAddPaymentPassViewController *vc = [[PKAddPaymentPassViewController alloc] initWithRequestConfiguration:configuration delegate:self];
+         //vc.delegate = self;
+         //NSLog(@"hola vc %@", vc);
+
+        PKPassLibrary *libra = [[PKPassLibrary alloc] init];
+       [libra openPaymentSetup];
+
+///////
+
+
     self.passViewController = [[PKAddPaymentPassViewController alloc] initWithRequestConfigurtion:config delegate:self];
     if(self.passViewController !=nil) {
         [self presentViewController:self.passViewController animated:YES completion:nil];
@@ -80,5 +91,26 @@ Determining if Payment Passes Can Be Added
 -(NSData *) dataFromString: (NSString *) string {
     return [[NSData alloc] initWithBase64EncodeString: string options: NSDataBase64DecodingIgnoreUnkownCharacters];
 }
+
+
+/////////////////
+
+- (NSString* ) stringFromData:(NSData *)base64String asBase64:(NSData *)sdata {
+   NSData *decodedData = [[NSData alloc] initWithBase64EncodedData:base64String options:NSDataBase64DecodingIgnoreUnknownCharacters];
+   NSString *decodedString = [[NSString alloc] initWithData:decodedData encoding:NSUTF8StringEncoding];
+   return decodedString;
+}
+
+- (NSString* ) stringFromData:(NSData *)somedata {
+   NSData *decodedData = [[NSData alloc] initWithBase64EncodedData:somedata options:NSDataBase64DecodingIgnoreUnknownCharacters];
+   NSString *decodedString = [[NSString alloc] initWithData:decodedData encoding:NSUTF8StringEncoding];
+   return decodedString;
+}
+
+- (NSData* ) dataFromString:(NSString *)string fromBase64:(BOOL)isFromBase64 {
+   NSData *decodedData = [[NSData alloc] initWithBase64EncodedString:string options:NSDataBase64DecodingIgnoreUnknownCharacters];
+   return decodedData;
+}
+
 
 @end

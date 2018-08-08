@@ -1,5 +1,5 @@
 /**
- * 7/8/2018
+ * 8/8/2018
  * @author Hatem 
  * @implementation file
  */
@@ -8,46 +8,28 @@
 #import <Cordova/CDV.h>
 #import <PassKit/PassKit.h>
 
-typedef void (^completionHand)(PKAddPaymentPassRequest *request); // << please look into this
+typedef void (^completionHand)(PKAddPaymentPassRequest *request);
 
 @interface AppleWallet()<PKAddPaymentPassViewControllerDelegate>
 
-@property (nonatomic, strong) completionHand completionHandler; // Need to verify this type
-@property (nonatomic, strong) NSString* stringFromData; // Need to verify this type
-@property (nonatomic, copy) NSString* transactionCallbackId; // Need to verify this type
-@property (nonatomic, copy) NSString* completionCallbackId; // Need to verify this type
-@property (nonatomic, retain) UIViewController* addPaymentPassModal; // Need to verify this type
+@property (nonatomic, strong) completionHand completionHandler; 
+@property (nonatomic, strong) NSString* stringFromData; 
+@property (nonatomic, copy) NSString* transactionCallbackId; 
+@property (nonatomic, copy) NSString* completionCallbackId; 
+@property (nonatomic, retain) UIViewController* addPaymentPassModal; 
 
-//- (NSData* ) dataFromString:(NSString *)base64String fromBase64:(BOOL)isFromBase64;
-//- (NSString* ) stringFromData:(NSData *)base64String ;
-//- (NSString* ) stringFromData:(NSData *)base64String asBase64:(NSData *)sdata ;
 
 @end
 
 
 @implementation AppleWallet
 
-//- (NSString* ) stringFromData:(NSData *)base64String asBase64:(NSData *)sdata {
-//    NSData *decodedData = [[NSData alloc] initWithBase64EncodedData:base64String options:NSDataBase64DecodingIgnoreUnknownCharacters];
-//    NSString *decodedString = [[NSString alloc] initWithData:decodedData encoding:NSUTF8StringEncoding];
-//    return decodedString;
-//}
-
-//- (NSString* ) stringFromData:(NSData *)somedata {
-//    NSData *decodedData = [[NSData alloc] initWithBase64EncodedData:somedata options:NSDataBase64DecodingIgnoreUnknownCharacters];
-//    NSString *decodedString = [[NSString alloc] initWithData:decodedData encoding:NSUTF8StringEncoding];
-//    return decodedString;
-//}
-
-//- (NSData* ) dataFromString:(NSString *)string fromBase64:(BOOL)isFromBase64 {
-//    NSData *decodedData = [[NSData alloc] initWithBase64EncodedString:string options:NSDataBase64DecodingIgnoreUnknownCharacters];
-//    return decodedData;
-//}
 
 + (BOOL)canAddPaymentPass 
 {
     return [PKAddPaymentPassViewController canAddPaymentPass];
 }
+
 
 - (void)available:(CDVInvokedUrlCommand*)command
 {
@@ -73,6 +55,7 @@ typedef void (^completionHand)(PKAddPaymentPassRequest *request); // << please l
         NSDictionary* options = [arguments objectAtIndex:0]; 
         
         PKAddPaymentPassRequestConfiguration* configuration = [[PKAddPaymentPassRequestConfiguration alloc] initWithEncryptionScheme:PKEncryptionSchemeRSA_V2];
+        
         // The name of the person the card is issued to
         configuration.cardholderName = @"Test user";
 
@@ -85,24 +68,20 @@ typedef void (^completionHand)(PKAddPaymentPassRequest *request); // << please l
         // Filters the device and attached devices that already have this card provisioned. No filter is applied if the parameter is omitted
         configuration.primaryAccountIdentifier = @"";
         
+        // Network type has been set static for testing sake 
         configuration.paymentNetwork =@"VISA";
         
         
         // Filters the networks shown in the introduction view to this single network.
-//        NSString* paymentNetwork = [options objectForKey:@"paymentNetwork"];
-//        if([[paymentNetwork uppercaseString] isEqualToString:@"VISA"]) {
-//            configuration.paymentNetwork = PKPaymentNetworkVisa;
-//        }
-//        if([[paymentNetwork uppercaseString] isEqualToString:@"MASTERCARD"]) {
-//            configuration.paymentNetwork = PKPaymentNetworkMasterCard;
-//        }
-//        PKPassLibrary *libra = [[PKPassLibrary alloc] init];
-//        [libra openPaymentSetup];
-
-
-         //PKAddPaymentPassViewController *vc = [[PKAddPaymentPassViewController alloc] initWithRequestConfiguration:configuration delegate:self];
-         //vc.delegate = self;
-         //NSLog(@"hola vc %@", vc);
+    /*
+       NSString* paymentNetwork = [options objectForKey:@"paymentNetwork"];
+       if([[paymentNetwork uppercaseString] isEqualToString:@"VISA"]) {
+           configuration.paymentNetwork = PKPaymentNetworkVisa;
+       }
+       if([[paymentNetwork uppercaseString] isEqualToString:@"MASTERCARD"]) {
+           configuration.paymentNetwork = PKPaymentNetworkMasterCard;
+       }
+    */
 
         // Present view controller
         self.addPaymentPassModal = [[PKAddPaymentPassViewController alloc] initWithRequestConfiguration:configuration delegate:self];
@@ -123,13 +102,17 @@ typedef void (^completionHand)(PKAddPaymentPassRequest *request); // << please l
     }
 }
 
+
 - (void)addPaymentPassViewController:(PKAddPaymentPassViewController *)controller
                                     didFinishAddingPaymentPass:(PKPaymentPass *)pass
                                     error:(NSError *)error
 {
     NSLog(@"didFinishAddingPaymentPass");
-    NSLog(@"%@", error);
     [controller dismissViewControllerAnimated:YES completion:nil];
+    
+    // return with error if exists
+    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:error.localizedDescription];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.transactionCallbackId];
 }
 
 
@@ -145,6 +128,7 @@ typedef void (^completionHand)(PKAddPaymentPassRequest *request); // << please l
     self.completionHandler = handler;
 //    NSLog(@"%@", NSStringFromClass([self.completionHandler class]));
     
+
     // the leaf certificate will be the first element of that array and the sub-CA certificate will follow.
     NSString *certificateOfIndexZeroString = [certificates[0] base64EncodedStringWithOptions:0];
     NSString *certificateOfIndexOneString = [certificates[1] base64EncodedStringWithOptions:0];
@@ -160,22 +144,10 @@ typedef void (^completionHand)(PKAddPaymentPassRequest *request); // << please l
                                           }
                                   };
     
-//    NSLog(@"Gamal-certificateOfIndexZeroString: %@", certificateOfIndexZeroString);
-//    NSLog(@"Gamal-certificateOfIndexOnetring: %@", certificateOfIndexOneString);
-//    NSLog(@"Gamal-nonceString: %@", nonceString);
-//    NSLog(@"Gamal-nonceSignatureString: %@", nonceSignatureString);
-    
-//    NSString* activationData = @"eyJ2ZXJzaW9uIjoiMiIsImV4cGlyYXRpb25EYXRlSW5jbHVkZWQiOmZhbHNlLCJ0b2tlblVuaXF1ZVJlZmVyZW5jZUluY2x1ZGVkIjpmYWxzZSwic2lnbmF0dXJlQWxnb3JpdGhtIjoiUlNBLVNIQTI1NiIsInNpZ25hdHVyZSI6ImFIYWFHaXhUdXJFY3hqVm9hQTVReHBCZE5yYmFKcGs5Vk1OS2x0TmU3SDdVbDN1NGluS1pnRzY0VG5UdksvTVRTN0x5STkxT1J6NjZtQzFqZjJEVWIvVll0NGFzVExoVElHOFB4anhvTXZCOWJXaGhrU3A2Yk04V1lOWVRJYXVnbng4dUI4WG56ZmF0eWV0RUFIV2g1Y0lPM2VZZi83eXFQVXlsTGFKN1ZVWHM2MzVPMHRXMllIKzVBUDN2OTdUZXhLczcvWE5oeTl2dUtwcjB5YU5FTnZjTlMzYjFLNlA1ck5uRWhpSnYvNDZXdFhNWnZHT0tBYWRtcEFyK1hWSVVRRlU1NjZMSm4yNG1GN0pqMWdzODJEZHdpK0RFNStKVDRCMC9jWkhOM2ViYUNrTG84N1VuRGRsVnJQQW1sSVh4cHZXSyt4bittQzEwU2RvRGllSTVLZz09In0=";
-//    NSString* encryptedPassData = @"YSqWD0auueYRGyO26U78PIiZv1z9gLWy2RbmO4cW3+di6SeGAClGJJIw+zm9iAomcYg1PAGDvtod6OK4Y94RD7WtjQmgAwcBfnwKXwul2qFdTzs/RQG9qBXxESJaZ5ZWnVD8jXl3aXQO9rXylgb8Azmhua0z8C6q9peALBtLw+cUsC/NPQoJobrEiFuilwAVEduD8xpNyLrBOd9Q7qOX6Lbtkgdvnui3QQQYPKW8AHOuxrPcrgDoDARO0hjn3hJAItTm+gumAtj/UeLlmjuOfI8fd/s=";
-//    NSString* wrappedKey = @"BND8StI9swVULz66Rn7pp3g3ET+s5d2VS+llopwTyBwfUQc0gF+QY0JdYd5NYQETdV1mQ8Dn9bHm1tK2qHbX/UY=";
-//
-//    PKAddPaymentPassRequest *paymentPassRequest = [[PKAddPaymentPassRequest alloc] init];
-//
-//    paymentPassRequest.encryptedPassData = [[NSData alloc] initWithBase64EncodedString:encryptedPassData options:0];
-//    paymentPassRequest.activationData = [activationData dataUsingEncoding:NSUTF8StringEncoding];
-//    paymentPassRequest.wrappedKey = [[NSData alloc] initWithBase64EncodedString:wrappedKey options:0];
-//
-//    handler(paymentPassRequest);
+//    NSLog(@"Gamal- certificates[0]: %@", certificates[0]);
+//    NSLog(@"Gamal- certificates[1]: %@", certificates[1]);
+//    NSLog(@"Gamal- nonce: %@", nonce);
+//    NSLog(@"Gamal- nonceSignature: %@", nonceSignature);
     
 
     // Upcall with the data
@@ -219,18 +191,7 @@ typedef void (^completionHand)(PKAddPaymentPassRequest *request); // << please l
         self.completionCallbackId = command.callbackId;
         [self.commandDelegate sendPluginResult:pluginResult callbackId:self.completionCallbackId]; // Issue request
         
-        
-        //NEED IMPLEMENTAION
-//        OCF_DISPATCH_MAIN_QUEUE_ALWAYS(^{
-//            NSLog(@"LOG ocf OCF_DISPATCH_MAIN_QUEUE_ALWAYS ");
-//
-//        });
-        
-    }
-    
+    } 
 }
 
-
 @end
-
-
