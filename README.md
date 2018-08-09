@@ -3,7 +3,7 @@
 This plugin provides support for showing/Adding your credit cards to Apple Wallet
 
 
-###Important
+### Important
 
 > Adding payment passes requires a special entitlement issued by Apple. Your app must include this entitlement before you can use this class. For more information on requesting this entitlement, see the Card Issuers section at developer.apple.com/apple-pay/.
 
@@ -33,7 +33,7 @@ declare var AppleWallet;
 
 
 
-### available
+### Availability
 
 Simple call to check whether the app can add cards to Apple Pay.
 
@@ -48,7 +48,7 @@ Simple call to check whether the app can add cards to Apple Pay.
 ```
 
 
-### startAddPaymentPass
+### Start Adding card
 
 Simple call with the configuration data needed to instantiate a new PKAddPaymentPassViewController object.
 
@@ -76,7 +76,7 @@ For more information check Apple docs from [here](https://developer.apple.com/do
 
 
 
-### completeAddPaymentPass
+### Complete adding card
 
 Simple call contains the card data needed to add a card to Apple Pay.
 
@@ -88,9 +88,9 @@ Simple call contains the card data needed to add a card to Apple Pay.
 
 ```javascript
     let encryptedData = {
-        activationData: "",
-        encryptedPassData: "",
-        wrappedKey: ""
+        activationData: "encoded Base64 activationData from your server",
+        encryptedPassData: "encoded Base64 encryptedPassData from your server",
+        wrappedKey: "encoded Base64 wrappedKey from your server"
     }
     AppleWallet.completeAddPaymentPass(encryptedData)
     .then((res) => {
@@ -103,10 +103,5 @@ Simple call contains the card data needed to add a card to Apple Pay.
 
 
 
-## Documentation
-
-Plugin documentation: [doc/index.md](doc/index.md) 
-
-
 ## Credits
-This Plugin was originally by [TOoma](https://github.com/tomavic).   /play trombone
+This Plugin was originally by [TOoma](https://github.com/tomavic).
