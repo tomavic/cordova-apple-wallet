@@ -57,23 +57,19 @@ typedef void (^completionHand)(PKAddPaymentPassRequest *request);
         PKAddPaymentPassRequestConfiguration* configuration = [[PKAddPaymentPassRequestConfiguration alloc] initWithEncryptionScheme:PKEncryptionSchemeRSA_V2];
         
         // The name of the person the card is issued to
-        configuration.cardholderName = @"Test user";
+        configuration.cardholderName = [options objectForKey:@"cardholderName"];
 
         // Last 4/5 digits of PAN. The last four or five digits of the PAN. Presented to the user with dots prepended to indicate that it is a suffix. 
-        configuration.primaryAccountSuffix = @"0492";
+        configuration.primaryAccountSuffix = [options objectForKey:@"primaryAccountSuffix"];
 
         // A short description of the card.
-        configuration.localizedDescription = @"description test";
+        configuration.localizedDescription = [options objectForKey:@"localizedDescription"];
 
         // Filters the device and attached devices that already have this card provisioned. No filter is applied if the parameter is omitted
-        configuration.primaryAccountIdentifier = @"";
-        
-        // Network type has been set static for testing sake 
-        configuration.paymentNetwork =@"VISA";
+        configuration.primaryAccountIdentifier = @""; 
         
         
         // Filters the networks shown in the introduction view to this single network.
-    /*
        NSString* paymentNetwork = [options objectForKey:@"paymentNetwork"];
        if([[paymentNetwork uppercaseString] isEqualToString:@"VISA"]) {
            configuration.paymentNetwork = PKPaymentNetworkVisa;
@@ -81,8 +77,7 @@ typedef void (^completionHand)(PKAddPaymentPassRequest *request);
        if([[paymentNetwork uppercaseString] isEqualToString:@"MASTERCARD"]) {
            configuration.paymentNetwork = PKPaymentNetworkMasterCard;
        }
-    */
-
+    
         // Present view controller
         self.addPaymentPassModal = [[PKAddPaymentPassViewController alloc] initWithRequestConfiguration:configuration delegate:self];
         
@@ -126,7 +121,7 @@ typedef void (^completionHand)(PKAddPaymentPassRequest *request);
     
     // save completion handler
     self.completionHandler = handler;
-//    NSLog(@"%@", NSStringFromClass([self.completionHandler class]));
+    // NSLog(@"%@", NSStringFromClass([self.completionHandler class]));
     
 
     // the leaf certificate will be the first element of that array and the sub-CA certificate will follow.
@@ -149,7 +144,6 @@ typedef void (^completionHand)(PKAddPaymentPassRequest *request);
 //    NSLog(@"Gamal- nonce: %@", nonce);
 //    NSLog(@"Gamal- nonceSignature: %@", nonceSignature);
     
-
     // Upcall with the data
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:dictionary];
     [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
@@ -160,7 +154,7 @@ typedef void (^completionHand)(PKAddPaymentPassRequest *request);
 
 - (void)completeAddPaymentPass:(CDVInvokedUrlCommand*)command
 {
-    NSLog(@"LOG start completeAddPaymentPass");
+    NSLog(@"LOG completeAddPaymentPass");
     
     CDVPluginResult* pluginResult;
     NSArray* arguments = command.arguments;
@@ -171,25 +165,22 @@ typedef void (^completionHand)(PKAddPaymentPassRequest *request);
         PKAddPaymentPassRequest* request = [[PKAddPaymentPassRequest alloc] init];
         NSDictionary* options = [arguments objectAtIndex:0];
         
-//        NSString* wrappedKey = [options objectForKey:@"wrappedKey"];
-//        NSString* encryptedPassData = [options objectForKey:@"encryptedPassData"];
-//        NSString* activationData = [options objectForKey:@"activationData"];
-
-        NSString* activationData = @"eyJ2ZXJzaW9uIjoiMiIsImV4cGlyYXRpb25EYXRlSW5jbHVkZWQiOmZhbHNlLCJ0b2tlblVuaXF1ZVJlZmVyZW5jZUluY2x1ZGVkIjpmYWxzZSwic2lnbmF0dXJlQWxnb3JpdGhtIjoiUlNBLVNIQTI1NiIsInNpZ25hdHVyZSI6ImFIYWFHaXhUdXJFY3hqVm9hQTVReHBCZE5yYmFKcGs5Vk1OS2x0TmU3SDdVbDN1NGluS1pnRzY0VG5UdksvTVRTN0x5STkxT1J6NjZtQzFqZjJEVWIvVll0NGFzVExoVElHOFB4anhvTXZCOWJXaGhrU3A2Yk04V1lOWVRJYXVnbng4dUI4WG56ZmF0eWV0RUFIV2g1Y0lPM2VZZi83eXFQVXlsTGFKN1ZVWHM2MzVPMHRXMllIKzVBUDN2OTdUZXhLczcvWE5oeTl2dUtwcjB5YU5FTnZjTlMzYjFLNlA1ck5uRWhpSnYvNDZXdFhNWnZHT0tBYWRtcEFyK1hWSVVRRlU1NjZMSm4yNG1GN0pqMWdzODJEZHdpK0RFNStKVDRCMC9jWkhOM2ViYUNrTG84N1VuRGRsVnJQQW1sSVh4cHZXSyt4bittQzEwU2RvRGllSTVLZz09In0=";
-        NSString* encryptedPassData = @"YSqWD0auueYRGyO26U78PIiZv1z9gLWy2RbmO4cW3+di6SeGAClGJJIw+zm9iAomcYg1PAGDvtod6OK4Y94RD7WtjQmgAwcBfnwKXwul2qFdTzs/RQG9qBXxESJaZ5ZWnVD8jXl3aXQO9rXylgb8Azmhua0z8C6q9peALBtLw+cUsC/NPQoJobrEiFuilwAVEduD8xpNyLrBOd9Q7qOX6Lbtkgdvnui3QQQYPKW8AHOuxrPcrgDoDARO0hjn3hJAItTm+gumAtj/UeLlmjuOfI8fd/s=";
-        NSString* wrappedKey = @"BND8StI9swVULz66Rn7pp3g3ET+s5d2VS+llopwTyBwfUQc0gF+QY0JdYd5NYQETdV1mQ8Dn9bHm1tK2qHbX/UY=";
+       NSString* activationData = [options objectForKey:@"activationData"];
+       NSString* encryptedPassData = [options objectForKey:@"encryptedPassData"];
+       NSString* wrappedKey = [options objectForKey:@"wrappedKey"];
         
         request.activationData = [activationData dataUsingEncoding:NSUTF8StringEncoding];
         request.encryptedPassData = [[NSData alloc] initWithBase64EncodedString:encryptedPassData options:0];
         request.wrappedKey = [[NSData alloc] initWithBase64EncodedString:wrappedKey options:0];
         
+        // Issue request
         self.completionHandler(request);
         
         // Send result
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_NO_RESULT];
         [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
         self.completionCallbackId = command.callbackId;
-        [self.commandDelegate sendPluginResult:pluginResult callbackId:self.completionCallbackId]; // Issue request
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:self.completionCallbackId]; 
         
     } 
 }
