@@ -101,7 +101,21 @@ Simple call contains the card data needed to add a card to Apple Pay.
     });
 ```
 
+# License
+
+MIT
+
+# Credits
+
+Made with ❤️ by Hatem. Follow us on [Twitter](https://twitter.com/toomavic) to get the latest news first! I will be happy to receive your feedback! We're always happy to hear your feedback.
+Enjoy!
 
 
-## Credits
-This Plugin was originally by [TOoma](https://github.com/tomavic).
+
+    ░░░░░░░░░░░░░▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄ 
+    ░░░░░░░░░░█░░░░░░▀█▄▀▄▀██████░░░▀█▄▀▄▀██████ 
+    ░░░░░░░░ ░░░░░░░░░░▀█▄█▄███▀░░░░░░▀█▄█▄███▀░
+
+   All copyrights reserved © 2018 | TOmas™ Inc. 
+
+
