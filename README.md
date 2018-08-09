@@ -80,9 +80,11 @@ For more information check Apple docs from [here](https://developer.apple.com/do
 
 Simple call contains the card data needed to add a card to Apple Pay.
 
--activationData: The request’s activation data.
--encryptedPassData : An encrypted JSON file containing the sensitive information needed to add a card to Apple Pay.
--ephemeralPublicKey The ephemeral public key used by elliptic curve cryptography (ECC). or wrappedKey if you are using RSA
+- activationData: The request’s activation data.
+
+- encryptedPassData : An encrypted JSON file containing the sensitive information needed to add a card to Apple Pay.
+
+- ephemeralPublicKey The ephemeral public key used by elliptic curve cryptography (ECC). or wrappedKey if you are using RSA
 
 
 
