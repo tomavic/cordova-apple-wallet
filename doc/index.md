@@ -86,7 +86,6 @@ You should expect the callback success response to be as follow
         "certificateLeaf":"Base64 string represents certificateLeaf"
         "nonce":"Base64 string represents nonce",
         "nonceSignature":"Base64 string represents nonceSignature",
-        }
       }
     }
 ```
@@ -125,9 +124,16 @@ Simple call contains the card data needed to add a card to Apple Pay.
 
 
 
+# Contribute 
+
+Please support us by giving advice on how to apply best practice to Objective-C native code.
+
+
+
 # License
 
 MIT
+
 
 # Credits
 
