@@ -46,8 +46,8 @@ Simple call to check whether the app can add cards to Apple Pay.
       // Apple Wallet is enabled and a supported card is setup. Expect:
       // boolean value, true or false
     })
-    .catch((message) => {
-      console.error("ERROR AVAILBLE>> ", message);
+    .catch((err) => {
+      // Catch {{err}} here
     });
 ```
 
@@ -126,8 +126,7 @@ Simple call contains the card data needed to add a card to Apple Pay.
 
 # Contribute 
 
-Please support us by giving advice on how to apply best practice to Objective-C native code.
-
+Please support us by giving advice on how to apply best practice and code review.
 
 
 # License
@@ -137,7 +136,7 @@ MIT
 
 # Credits
 
-Made with ❤️ by Hatem. Follow me on [Twitter](https://twitter.com/toomavic) to get the latest news first! I will be happy to receive your feedback via [Email](hbasheer@live.com) ! We're always happy to hear your feedback.
+Made with ❤️ by Hatem. Follow me on [Twitter](https://twitter.com/toomavic) to get the latest news first! I will be happy to receive your feedback via [Email](hbasheer@live.com) ! I am always happy to hear your feedback.
 Enjoy!
 
 
