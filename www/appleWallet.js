@@ -30,7 +30,7 @@ var AppleWallet = {
     },
     /**
      * @function isCardExistInWalletOrWatch
-     * @description a function to check existence and ellibagility to add a card
+     * @description a function to check existence and eligibility to add a card
      * @param {Object} [passSuffixData] - an object contains the primaryAccountSuffix
      * @param {Function} [successCallback] - Optional success callback, recieves message object.
      * @param {Function} [errorCallback] - Optional error callback, recieves message object.

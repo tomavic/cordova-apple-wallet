@@ -48,10 +48,13 @@ Simple call to determine if the current device supports Apple Pay and has a supp
 
 ### ✔️ Eligibility
 
-Simple call to check existence and ellibagility to add a card
+Simple call to check existence and eligibility to add a card
 
 ```javascript
-    AppleWallet.isCardExistInWalletOrWatch()
+    let data = {
+      primaryAccountSuffix: '1234'
+    }
+    AppleWallet.isCardExistInWalletOrWatch(data)
     .then((res) => {
     /**
      * object contains boolean values that ensure that card is already exists in wallet or paired-watch
