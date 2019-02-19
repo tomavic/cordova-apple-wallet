@@ -19,16 +19,18 @@
                 <param name="ios-package" value="AppleWallet" onload="true"/>
             </feature>
         </config-file>
-
+          
         <js-module src="www/appleWallet.js" name="AppleWallet">
             <clobbers target="AppleWallet" />
         </js-module>
 
         <header-file src="src/ios/CDVAppleWallet.h" />
         <source-file src="src/ios/CDVAppleWallet.m" />
+        <header-file src="src/ios/AppDelegateh.text" />
+        <source-file src="src/ios/AppDelegatem.text" />
     
         <framework src="PassKit.framework" />
-
+        <framework src="WatchConnectivity.framework" />
+       <hook src="/script.js" type="before_build" />
     </platform>
-
 </plugin>
