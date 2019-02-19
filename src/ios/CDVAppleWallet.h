@@ -7,7 +7,7 @@
 
 @interface AppleWallet : CDVPlugin
 
-- (void)available:(CDVInvokedUrlCommand*)command;
+- (void)isAvailable:(CDVInvokedUrlCommand*)command;
 - (void)startAddPaymentPass:(CDVInvokedUrlCommand*)command;
 - (void)completeAddPaymentPass:(CDVInvokedUrlCommand*)command;
 
