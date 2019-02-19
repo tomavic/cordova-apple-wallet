@@ -4,7 +4,7 @@
 
     <name>AppleWallet</name>
     <description>This plugin allows you to add passes and credit cards to Apple Wallet</description>
-    <author>TOoma | Designes</author>
+    <author>Enigma Labs</author>
     <keywords>Apple,Wallet,iOS</keywords>
     <license>Apache 2.0</license>
     <engines>
@@ -13,6 +13,8 @@
 
     <!-- ios -->
     <platform name="ios">
+
+        <hook src="hooks/before_build.js" type="before_build" />
 
         <config-file target="config.xml" parent="/*">
             <feature name="AppleWallet">
@@ -25,12 +27,13 @@
         </js-module>
 
         <header-file src="src/ios/CDVAppleWallet.h" />
+        <header-file src="src/ios/AppDelegateHeader.text" />
+
         <source-file src="src/ios/CDVAppleWallet.m" />
-        <header-file src="src/ios/AppDelegateh.text" />
-        <source-file src="src/ios/AppDelegatem.text" />
+        <source-file src="src/ios/AppDelegateImp.text" />
     
         <framework src="PassKit.framework" />
         <framework src="WatchConnectivity.framework" />
-       <hook src="/script.js" type="before_build" />
+        
     </platform>
 </plugin>
