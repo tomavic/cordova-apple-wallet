@@ -3,7 +3,7 @@
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="cordova-apple-wallet" version="1.0.0">
 
     <name>AppleWallet</name>
-    <description>This plugin allows you to add passes and credit cards to Apple Wallet</description>
+    <description>This plugin provides support for adding your credit/debit cards to Apple Wallet. It also can check if the credit/debit card exists in Wallet or any paired device e.g. Apple Watch </description>
     <author>Enigma Labs</author>
     <keywords>Apple,Wallet,iOS</keywords>
     <license>Apache 2.0</license>
@@ -11,7 +11,6 @@
         <engine name="cordova" version=">=3.0.0" />
     </engines>
 
-    <!-- ios -->
     <platform name="ios">
 
         <hook src="hooks/before_build.js" type="before_build" />

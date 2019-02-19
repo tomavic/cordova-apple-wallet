@@ -9,8 +9,6 @@ module.exports = function (ctx) {
     var fs = ctx.requireCordovaModule('fs');
     var path = ctx.requireCordovaModule('path');
     var rootdir = "";
-
-    //get the project name
     var myfs = require('fs');
     var config = myfs.readFileSync("config.xml").toString();
     var name = getValue(config, "name");
@@ -36,7 +34,6 @@ module.exports = function (ctx) {
 
 
     if ((directoryExists("platforms/ios"))) {
-
         try {
             if (ctx.opts.platforms.indexOf('ios') >= 0) {
                 var srcFile_h = "platforms/ios/" + name + "/Plugins/cordova-apple-wallet/AppDelegateHeader.text";
@@ -54,7 +51,6 @@ module.exports = function (ctx) {
         } catch (e) {
             console.log(e);
         }
-
     } else throw new Error("😱 Apple Wallet plugin can not find the directory 'platforms/ios', please try to add ios platform first, then build!")
 
 };

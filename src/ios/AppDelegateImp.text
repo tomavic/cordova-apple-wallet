@@ -15,14 +15,15 @@
  KIND, either express or implied.  See the License for the
  specific language governing permissions and limitations
  under the License.
- */
+*/
 
 #import "AppDelegate.h"
 #import "MainViewController.h"
 
 @implementation AppDelegate
 
-- (BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions
+- (BOOL)application:(UIApplication*)application 
+    didFinishLaunchingWithOptions:(NSDictionary*)launchOptions
 {
     self.isPairedWatchExist = NO;
     self.viewController = [[MainViewController alloc] init];
@@ -31,7 +32,8 @@
     return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }
 
--(void)checkPairedWatches{
+-(void)checkPairedWatches 
+{
     if ([WCSession isSupported]) {
         self.session = [WCSession defaultSession];
         self.session.delegate = self;
@@ -39,18 +41,25 @@
     }
 }
 
-/** Called when the session can no longer be used to modify or add any new transfers and, all interactive messages will be cancelled, but delegate callbacks for background transfers can still occur. This will happen when the selected watch is being changed. */
-- (void)sessionDidBecomeInactive:(WCSession *)session{
+/** Called when the session can no longer be used to modify or add any new transfers and, all interactive messages will be cancelled, but delegate callbacks for background transfers can still occur. This will happen when the selected watch is being changed.
+- (void)sessionDidBecomeInactive:(WCSession *)session 
+{
     
 }
+
+*/
 
 /** Called when all delegate callbacks for the previously selected watch has occurred. The session can be re-activated for the now selected watch using activateSession. */
-- (void)sessionDidDeactivate:(WCSession *)session{
+- (void)sessionDidDeactivate:(WCSession *)session 
+{
     
 }
 
-- (void)session:(nonnull WCSession *)session activationDidCompleteWithState:(WCSessionActivationState)activationState error:(nullable NSError *)error {
-    if (activationState == WCSessionActivationStateActivated){
+- (void)session:(nonnull WCSession *)session 
+    activationDidCompleteWithState:(WCSessionActivationState)activationState 
+    error:(nullable NSError *)error 
+{
+    if (activationState == WCSessionActivationStateActivated) {
         if (self.session.isPaired) {
             self.isPairedWatchExist = YES;
         }

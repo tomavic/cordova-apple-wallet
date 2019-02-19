@@ -95,7 +95,7 @@ Simple call to check out if there is any paired Watches so that you can toggle v
 
 Simple call with the configuration data needed to instantiate a new PKAddPaymentPassViewController object.
 
-This method provides the data needed to create a request to add your payment pass (credit/debit card). After a successful callback, pass the certificate chain to your issuer server-side using our [callback delegate method](#Card-Addition-Callback-Delegate). The issuer server-side should returns an encrypted JSON payload containing the encrypted card data, which is required to be get the final response
+This method provides the data needed to create a request to add your payment pass (credit/debit card). After a successful callback, pass the certificate chain to your issuer server-side using our [callback delegate method](#-card-addition-callback-delegate). The issuer server-side should returns an encrypted JSON payload containing the encrypted card data, which is required to be get the final response
 
 ```javascript
     let data = {
