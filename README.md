@@ -95,7 +95,7 @@ Simple call to check out if there is any paired Watches so that you can toggle v
 
 Simple call with the configuration data needed to instantiate a new PKAddPaymentPassViewController object.
 
-This method provides the data needed to create a request to add your payment pass (credit/debit card). After a successful callback, pass the certificate chain to your issuer server-side using our [callback delegate method](#-card-addition-callback-delegate). The issuer server-side should returns an encrypted JSON payload containing the encrypted card data, which is required to be get the final response
+This method provides the data needed to create a request to add your payment pass (credit/debit card). After a successful callback, pass the certificate chain to your issuer server-side using our callback delegate method `AppleWallet.completeAddPaymentPass`. The issuer server-side should returns an encrypted JSON payload containing the encrypted card data, which is required to be get the final response
 
 ```javascript
     let data = {
@@ -123,7 +123,7 @@ This method provides the data needed to create a request to add your payment pas
     });
 ```
 
-**👉 NOTE**: _The encryption scheme, cardholder name, and primary account suffix are required for configuration. The configuration information is used for setup and display only. It should not contain any sensitive information._
+👉 **NOTE**: _The encryption scheme, cardholder name, and primary account suffix are required for configuration. The configuration information is used for setup and display only. It should not contain any sensitive information._
 
 In order to get testing data check this [Apple Sandbox](https://developer.apple.com/apple-pay/sandbox-testing)
 
@@ -175,8 +175,10 @@ MIT
 Made with ❤️ by Hatem. Follow me on [Twitter](https://twitter.com/toomavic) to get the latest news first! I will be happy to receive your feedback via [Email](hbasheer@live.com) ! I am always happy to hear your feedback.
 Enjoy!
 
-  ░░░░░░░░░░░░░▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
-  ░░░░░░░░░░█░░░░░░▀█▄▀▄▀██████░░░▀█▄▀▄▀██████
-  ░░░░░░░░ ░░░░░░░░░░▀█▄█▄███▀░░░░░░▀█▄█▄███▀░
+
+
+    ░░░░░░░░░░░░░▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄ 
+    ░░░░░░░░░░█░░░░░░▀█▄▀▄▀██████░░░▀█▄▀▄▀██████ 
+    ░░░░░░░░ ░░░░░░░░░░▀█▄█▄███▀░░░░░░▀█▄█▄███▀░
 
    All copyrights reserved © 2019 | Enigma Labs Ltd | Tomas
