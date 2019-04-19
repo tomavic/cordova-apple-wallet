@@ -1,3 +1,5 @@
+![alt text](./banner.png)
+
 # cordova-apple-wallet
 
 This plugin provides support for adding your credit/debit cards to Apple Wallet. It also can check if the credit/debit card exists in Wallet or any paired device e.g. Apple Watch ⌚
