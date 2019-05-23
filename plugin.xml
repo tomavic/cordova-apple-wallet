@@ -26,10 +26,8 @@
         </js-module>
 
         <header-file src="src/ios/CDVAppleWallet.h" />
-        <header-file src="src/ios/AppDelegateHeader.text" />
 
         <source-file src="src/ios/CDVAppleWallet.m" />
-        <source-file src="src/ios/AppDelegateImp.text" />
     
         <framework src="PassKit.framework" />
         <framework src="WatchConnectivity.framework" />
