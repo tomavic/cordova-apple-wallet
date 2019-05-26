@@ -30,7 +30,7 @@ Or the latest (unstable) version:
 
 ## How to use
 
-### ✔️ Availability
+### ✔️ Apple Wallet Availability
 
 Simple call to determine if the current device supports Apple Pay and has a supported card installed.
 
@@ -48,15 +48,82 @@ Simple call to determine if the current device supports Apple Pay and has a supp
 
 ---
 
-### ✔️ Eligibility
+### ✔️ Card Eligibility
 
-Simple call to check existence and eligibility to add a card
+
+#### 1 - Check Card Eligibility
+
+Simple call to check Card Eligibility
+
+###### Parameters
+
+__primaryAccountIdentifier__ (String) Your card unique identifier that used in card in-app provisioning
 
 ```javascript
-    let data = {
-      primaryAccountSuffix: '1234'
-    }
-    AppleWallet.isCardExistInWalletOrWatch(data)
+    AppleWallet.checkCardEligibility(primaryAccountIdentifier)
+    .then((res) => {
+    /**
+     * Expect res to be boolean
+     */
+    })
+    .catch((err) => {
+      // Catch {{err}} here
+    });
+```
+
+
+#### 2 - Check Card Eligibility By Suffix
+Simple call to checkCardEligibilityBySuffix
+
+##### Parameters: 
+__cardSuffix__ (String) The card number suffix ex: last 4 or 6 digits
+
+```javascript
+    AppleWallet.checkCardEligibilityBySuffix(cardSuffix)
+    .then((res) => {
+    /**
+     * Expect res to be boolean
+     */
+    })
+    .catch((err) => {
+      // Catch {{err}} here
+    });
+```
+
+---
+
+
+### ✔️ Paired Devices
+
+#### 1 - Check Paired Devices
+
+Simple call to check out if there is any paired Watches so that you can toggle visibility of 'Add to Watch' button
+
+```javascript
+    AppleWallet.checkPairedDevices()
+    .then((res) => {
+    /**
+     * Expect
+     * res = {
+     *   isWatchPaired: boolean
+     * }
+     */
+    })
+    .catch((err) => {
+      // Catch {{err}} here
+    });
+```
+
+
+#### 2 - Check Paired Devices By Suffix
+
+Simple call to check paired devices with a card by its suffix
+##### Parameters
+
+__cardSuffix__ (String) The card number suffix ex: last 4 or 6 digits
+
+```javascript
+    AppleWallet.checkPairedDevicesBySuffix(cardSuffix)
     .then((res) => {
     /**
      * object contains boolean values that ensure that card is already exists in wallet or paired-watch
@@ -75,26 +142,7 @@ Simple call to check existence and eligibility to add a card
 
 ---
 
-### ✔️ Apple Watch Existence
 
-Simple call to check out if there is any paired Watches so that you can toggle visibility of 'Add to Watch' button
-
-```javascript
-    AppleWallet.isPairedWatchExist()
-    .then((res) => {
-    /**
-     * Expect
-     * res = {
-     *   isWatchPaired: boolean
-     * }
-     */
-    })
-    .catch((err) => {
-      // Catch {{err}} here
-    });
-```
-
----
 
 ### ✔️ Card Addition
 
@@ -186,4 +234,4 @@ Enjoy!
     ░░░░░░░░░░█░░░░░░▀█▄▀▄▀██████░░░▀█▄▀▄▀██████ 
     ░░░░░░░░ ░░░░░░░░░░▀█▄█▄███▀░░░░░░▀█▄█▄███▀░
 
-   All copyrights reserved © 2019 | Enigma Labs Ltd | Tomas
+   All copyrights reserved © 2019 | Enigma Tech Labs 
