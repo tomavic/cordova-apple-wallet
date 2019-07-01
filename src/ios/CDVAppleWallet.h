@@ -2,16 +2,17 @@
  * 8/8/2018
  * @author Hatem 
  * @header file
- * Copyright (c) Enigma Advanced Labs 2019
+ * Copyright (c) Enigma Labs 2019
  */
 #import "Foundation/Foundation.h"
 #import "Cordova/CDV.h"
 #import <PassKit/PassKit.h>
 #import <WatchConnectivity/WatchConnectivity.h>
 
-typedef void (^completedPaymentProcessHandler)(PKAddPaymentPassRequest *request);
+// typedef void (^completedPaymentProcessHandler)(PKAddPaymentPassRequest *request);
 
-@interface AppleWallet(): CDVPlugin<PKAddPaymentPassViewControllerDelegate>
+// @interface AppleWallet(): CDVPlugin<PKAddPaymentPassViewControllerDelegate>
+@interface AppleWallet : CDVPlugin
 
 - (void) isAvailable:(CDVInvokedUrlCommand*)command;
 - (void) checkCardEligibility:(CDVInvokedUrlCommand*)command;

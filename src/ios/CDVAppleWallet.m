@@ -11,6 +11,12 @@
 #import <WatchConnectivity/WatchConnectivity.h>
 #import "AppDelegate.h"
 
+typedef void (^completedPaymentProcessHandler)(PKAddPaymentPassRequest *request);
+
+@interface AppleWallet()<PKAddPaymentPassViewControllerDelegate>
+@end
+
+
 @implementation AppleWallet
 
 
