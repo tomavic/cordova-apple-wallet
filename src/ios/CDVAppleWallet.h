@@ -9,9 +9,7 @@
 #import <PassKit/PassKit.h>
 #import <WatchConnectivity/WatchConnectivity.h>
 
-// typedef void (^completedPaymentProcessHandler)(PKAddPaymentPassRequest *request);
 
-// @interface AppleWallet(): CDVPlugin<PKAddPaymentPassViewControllerDelegate>
 @interface AppleWallet : CDVPlugin
 
 - (void) isAvailable:(CDVInvokedUrlCommand*)command;
@@ -24,14 +22,6 @@
 - (void) startAddPaymentPass:(CDVInvokedUrlCommand*)command;
 - (void) completeAddPaymentPass:(CDVInvokedUrlCommand*)command;
 
-
-  @property (nonatomic, assign) BOOL isRequestIssued;
-  @property (nonatomic, assign) BOOL isRequestIssuedSuccess;
-  @property (nonatomic, strong) completedPaymentProcessHandler completionHandler;
-  @property (nonatomic, strong) NSString* stringFromData;
-  @property (nonatomic, copy) NSString* transactionCallbackId;
-  @property (nonatomic, copy) NSString* completionCallbackId;
-  @property (nonatomic, retain) UIViewController* addPaymentPassModal;
 
 @end
 
