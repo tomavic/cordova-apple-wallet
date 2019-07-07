@@ -1,6 +1,6 @@
 {
   "name": "cordova-apple-wallet",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "This plugin allows you to add passes and credit cards to Apple Wallet",
   "cordova": {
     "id": "cordova-apple-wallet",
