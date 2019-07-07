@@ -38,8 +38,9 @@ module.exports = function (ctx) {
     if ((directoryExists("platforms/ios"))) {
         try {
             if (ctx.opts.platforms.indexOf('ios') >= 0) {
-                var srcFile_h = "platforms/ios/" + name + "/Plugins/cordova-apple-wallet/AppDelegateHeader.text";
-                var srcFile_m = "platforms/ios/" + name + "/Plugins/cordova-apple-wallet/AppDelegateImp.text";
+
+                var srcFile_h = "plugins/cordova-apple-wallet/src/ios/AppDelegateHeader.text";
+                var srcFile_m = "plugins/cordova-apple-wallet/src/ios/AppDelegateImp.text";
                 
                 var destFile_h = path.join(rootdir, "platforms/ios/" + name + "/Classes/AppDelegate.h");
                 var destFile_m = path.join(rootdir, "platforms/ios/" + name + "/Classes/AppDelegate.m");
