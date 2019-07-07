@@ -215,13 +215,27 @@ Simple completion handler that takes encrypted card data returned from your serv
 
 For more information, please check Apple Developer documentation from [here](https://developer.apple.com/documentation/passkit/pkaddpaymentpassviewcontrollerdelegate/1615915-addpaymentpassviewcontroller?language=objc)
 
-## Contribute
+## Contributing
 
-Please support us by giving advice on how to apply best practice and code review.
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request
+
 
 ## License
 
 MIT
+
+
+## Donate 
+
+
+If you think that any information you obtained here is worth of some money and are willing to pay for it, you can give me a cup of coffee ☕ 😉
+
+
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=hbasheer%40live.com&item_name=Business&currency_code=USD&source=url)
 
 ## Credits
 
@@ -234,4 +248,4 @@ Enjoy!
     ░░░░░░░░░░█░░░░░░▀█▄▀▄▀██████░░░▀█▄▀▄▀██████ 
     ░░░░░░░░ ░░░░░░░░░░▀█▄█▄███▀░░░░░░▀█▄█▄███▀░
 
-   All copyrights reserved © 2019 | Enigma Tech Labs 
+   All copyrights reserved | Enigma Labs © | 2019

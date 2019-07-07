@@ -18,10 +18,13 @@ typedef void (^completedPaymentProcessHandler)(PKAddPaymentPassRequest *request)
 
   @property (nonatomic, assign) BOOL isRequestIssued;
   @property (nonatomic, assign) BOOL isRequestIssuedSuccess;
+
   @property (nonatomic, strong) completedPaymentProcessHandler completionHandler;
   @property (nonatomic, strong) NSString* stringFromData;
+
   @property (nonatomic, copy) NSString* transactionCallbackId;
   @property (nonatomic, copy) NSString* completionCallbackId;
+  
   @property (nonatomic, retain) UIViewController* addPaymentPassModal;
 
 @end
