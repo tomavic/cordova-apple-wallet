@@ -225,7 +225,20 @@ typedef void (^completedPaymentProcessHandler)(PKAddPaymentPassRequest *request)
         // Options
         NSDictionary* options = [arguments objectAtIndex:0];
         
-        PKAddPaymentPassRequestConfiguration* configuration = [[PKAddPaymentPassRequestConfiguration alloc] initWithEncryptionScheme:PKEncryptionSchemeRSA_V2];
+        // encryption scheme to be used (RSA_V2 or ECC_V2)
+        NSString* scheme = [options objectForKey:@"encryptionScheme"];
+        PKEncryptionScheme encryptionScheme = PKEncryptionSchemeRSA_V2;
+        if (scheme != nil) {
+            if([[scheme uppercaseString] isEqualToString:@"RSA_V2"]) {
+                encryptionScheme = PKEncryptionSchemeRSA_V2;
+            }
+            
+            if([[scheme uppercaseString] isEqualToString:@"ECC_V2"]) {
+                encryptionScheme = PKEncryptionSchemeECC_V2;
+            }
+        }
+
+        PKAddPaymentPassRequestConfiguration* configuration = [[PKAddPaymentPassRequestConfiguration alloc] initWithEncryptionScheme:encryptionScheme];
         
         // The name of the person the card is issued to
         configuration.cardholderName = [options objectForKey:@"cardholderName"];
