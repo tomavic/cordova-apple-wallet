@@ -155,7 +155,8 @@ This method provides the data needed to create a request to add your payment pas
       cardholderName: 'Test User',
       primaryAccountNumberSuffix: '1234',
       localizedDescription: 'Description of payment card',
-      paymentNetwork: 'VISA'
+      paymentNetwork: 'VISA',
+      encryptionScheme: 'RSA_V2'
     }
     AppleWallet.startAddPaymentPass(data)
     .then((res) => {
