@@ -132,10 +132,16 @@ typedef void (^completedPaymentProcessHandler)(PKAddPaymentPassRequest *request)
 // Plugin Method - check paired devices
 - (void) checkPairedDevices:(CDVInvokedUrlCommand *)command 
 {
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     NSMutableDictionary* dictionary = [[NSMutableDictionary alloc] init];
-    if(appDelegate.isPairedWatchExist) {
-        [dictionary setObject:@"True" forKey:@"isWatchPaired"];
+    if (WCSession.isSupported) { // check if the device support to handle an Apple Watch
+        WCSession *session = [WCSession defaultSession];
+        [session setDelegate:self.appDelegate];
+        [session activateSession];
+        if (session.isPaired) { // Check if the iPhone is paired with the Apple Watch
+            [dictionary setObject:@"True" forKey:@"isWatchPaired"];
+        } else {
+            [dictionary setObject:@"False" forKey:@"isWatchPaired"];
+        }
     } else {
         [dictionary setObject:@"False" forKey:@"isWatchPaired"];
     }
