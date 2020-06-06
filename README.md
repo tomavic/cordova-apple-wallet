@@ -20,20 +20,37 @@ In order to use it with Ionic 3, please follow this [instructions](https://ionic
   cordova plugin add cordova-apple-wallet --save
   ```
 
-Or the latest (unstable) version:
+Or the latest version:
 
   ```shell
     cordova plugin add --save https://github.com/tomavic/cordova-apple-wallet
   ```
 
-👉 **NOTE**: _In order to use it with normal cordova based project, please define a global variable, so that you can use it without lint errors_ `var AppleWallet = AppleWallet || {};`
 
-## How to use
+
+---
+
+## How to use (Ionic Framework)
+
+- For Ionic 3 full example check from 👉 [here](https://ionicframework.com/docs/v3/native/apple-wallet/) 
+
+
+- Ionic 4+ full example check from 👉 [here](https://ionicframework.com/docs/v3/native/apple-wallet/) 
+
+
+---
+
+## How to use (Vanilla JS)
+
+
+👉 **NOTE**: _In order to use it with normal cordova based project, please define a global variable, so that you can use it without lint errors_ `var AppleWallet = AppleWallet || {};`
 
 ### ✔️ Apple Wallet Availability
 
 Simple call to determine if the current device supports Apple Pay and has a supported card installed.
 
+
+#### cordova example
 ```javascript
     AppleWallet.isAvailable()
     .then((res) => {
@@ -45,7 +62,6 @@ Simple call to determine if the current device supports Apple Pay and has a supp
       // Catch {{err}} here
     });
 ```
-
 ---
 
 ### ✔️ Card Eligibility
@@ -55,7 +71,7 @@ Simple call to determine if the current device supports Apple Pay and has a supp
 
 Simple call to check Card Eligibility
 
-###### Parameters
+#### Parameters
 
 __primaryAccountIdentifier__ (String) Your card unique identifier that used in card in-app provisioning
 
@@ -153,10 +169,10 @@ This method provides the data needed to create a request to add your payment pas
 ```javascript
     let data = {
       cardholderName: 'Test User',
-      primaryAccountNumberSuffix: '1234',
+      primaryAccountSuffix: '1234',
       localizedDescription: 'Description of payment card',
       paymentNetwork: 'VISA',
-      encryptionScheme: 'RSA_V2'
+      encryptionScheme: 'RSA_V2' // This could be ECC_V2 or RSA_V2 - Default is RSA_V2
     }
     AppleWallet.startAddPaymentPass(data)
     .then((res) => {
@@ -249,4 +265,4 @@ Enjoy!
     ░░░░░░░░░░█░░░░░░▀█▄▀▄▀██████░░░▀█▄▀▄▀██████ 
     ░░░░░░░░ ░░░░░░░░░░▀█▄█▄███▀░░░░░░▀█▄█▄███▀░
 
-   All copyrights reserved | Enigma Labs © | 2019
+   All copyrights reserved | Enigma Labs © | 2020
