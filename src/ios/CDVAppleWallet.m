@@ -54,11 +54,24 @@ typedef void (^completedPaymentProcessHandler)(PKAddPaymentPassRequest *request)
     Boolean cardAddedtoRemotePasses = false;
     
     PKPassLibrary *passLibrary = [[PKPassLibrary alloc] init];
-    NSArray<PKPass *> *paymentPasses = [passLibrary passesOfType:PKPassTypePayment];
-    for (PKPass *pass in paymentPasses) {
-         PKPaymentPass * paymentPass = [pass paymentPass];
-        if([paymentPass primaryAccountIdentifier] == cardIdentifier)
-            cardAddedtoPasses = true;
+//     NSArray<PKPass *> *paymentPasses = [passLibrary passesOfType:PKPassTypePayment];
+    NSArray *paymentPasses = [[NSArray alloc] init];
+    if (@available(iOS 13.4, *)) { // PKPassTypePayment is deprecated in iOS13.5
+      paymentPasses = [passLibaray passesOfType: PKPassTypeSecureElement];
+      for (PKPass *pass in paymentPasses) {
+        PKSecureElementPass *paymentPass = [pass secureElementPass];
+        if ([paymentPass primaryAccountIdentifier] == cardIdentifier) {
+          cardAddedtoPasses = true;
+        }
+      }
+    } else {
+      paymentPasses = [passLibrary passesOfType: PKPassTypePayment];
+      for (PKPass *pass in paymentPasses) {
+        PKPaymentPass *paymentPass = [pass paymentPass];
+        if([paymentPass primaryAccountIdentifier] == cardIdentifier) {
+          cardAddedtoPasses = true;
+        }
+      }
     }
     
     if (WCSession.isSupported) { // check if the device support to handle an Apple Watch
@@ -67,12 +80,23 @@ typedef void (^completedPaymentProcessHandler)(PKAddPaymentPassRequest *request)
         [session activateSession];
         
         if ([session isPaired]) { // Check if the iPhone is paired with the Apple Watch
-            paymentPasses = [passLibrary remotePaymentPasses];
-            for (PKPass *pass in paymentPasses) {
-                PKPaymentPass * paymentPass = [pass paymentPass];
-                if([paymentPass primaryAccountIdentifier] == cardIdentifier)
-                    cardAddedtoRemotePasses = true;
+
+          if (@available(iOS 13.4, *)) {
+                paymentPasses = [passLibrary remoteSecureElementPasses]; // remotePaymentPasses is deprecated in iOS13.5
+                for (PKSecureElementPass *pass in paymentPasses) {
+                    if ([pass primaryAccountIdentifier] == cardIdentifier) {
+                        cardAddedtoPasses = true;
+                    }
+                }
+            } else {
+                paymentPasses = [passLibrary remotePaymentPasses];
+                for (PKPass *pass in paymentPasses) {
+                    PKPaymentPass * paymentPass = [pass paymentPass];
+                    if([paymentPass primaryAccountIdentifier] == cardIdentifier)
+                        cardAddedtoRemotePasses = true;
+                }
             }
+          
         }
         else
             cardAddedtoRemotePasses = true;
@@ -96,25 +120,47 @@ typedef void (^completedPaymentProcessHandler)(PKAddPaymentPassRequest *request)
     Boolean cardAddedtoRemotePasses = false;
     
     PKPassLibrary *passLibrary = [[PKPassLibrary alloc] init];
-    NSArray<PKPass *> *paymentPasses = [passLibrary passesOfType:PKPassTypePayment];
-    for (PKPass *pass in paymentPasses) {
-        PKPaymentPass * paymentPass = [pass paymentPass];
-        if([paymentPass primaryAccountNumberSuffix] == cardSuffix)
+//     NSArray<PKPass *> *paymentPasses = [passLibrary passesOfType:PKPassTypePayment];
+    NSArray *paymentPasses = [[NSArray alloc] init];
+    if (@available(iOS 13.4, *)) { // PKPassTypePayment is deprecated in iOS 13.5
+      paymentPasses = [passLibrary passesOfType: PKPassTypeSecureElement];
+        for (PKPass *pass in paymentPasses) {
+            PKSecureElementPass *paymentPass = [pass secureElementPass];
+            if ([paymentPass primaryAccountNumberSuffix] == cardSuffix) {
+                cardAddedtoPasses = true;
+            }
+        }
+    } else {
+      paymentPasses = [passLibrary passesOfType: PKPassTypePayment];
+        for (PKPass *pass in paymentPasses) {
+          PKPaymentPass * paymentPass = [pass paymentPass];
+          if([paymentPass primaryAccountNumberSuffix] == cardSuffix)
             cardAddedtoPasses = true;
+        }
     }
-    
+   
     if (WCSession.isSupported) { // check if the device support to handle an Apple Watch
         WCSession *session = [WCSession defaultSession];
         [session setDelegate:self.appDelegate];
         [session activateSession];
         
         if ([session isPaired]) { // Check if the iPhone is paired with the Apple Watch
+          if (@available(iOS 13.4, *)) { // remotePaymentPasses is deprecated in iOS 13.5
+            paymentPasses = [passLibrary remoteSecureElementPasses];
+            for (PKSecureElementPass *pass in paymentPasses) {
+              if ([pass primaryAccountNumberSuffix] == cardSuffix) {
+                cardAddedtoPasses = true;
+              }
+            }
+          } else {
             paymentPasses = [passLibrary remotePaymentPasses];
             for (PKPass *pass in paymentPasses) {
-                PKPaymentPass * paymentPass = [pass paymentPass];
+              PKPaymentPass * paymentPass = [pass paymentPass];
                 if([paymentPass primaryAccountNumberSuffix] == cardSuffix)
-                    cardAddedtoRemotePasses = true;
+                  cardAddedtoRemotePasses = true;
+                }
             }
+
         }
         else
             cardAddedtoRemotePasses = true;
