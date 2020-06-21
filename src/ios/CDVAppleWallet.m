@@ -60,7 +60,7 @@ typedef void (^completedPaymentProcessHandler)(PKAddPaymentPassRequest *request)
       paymentPasses = [passLibaray passesOfType: PKPassTypeSecureElement];
       for (PKPass *pass in paymentPasses) {
         PKSecureElementPass *paymentPass = [pass secureElementPass];
-        if ([paymentPass primaryAccountIdentifier] == cardIdentifier) {
+        if ([[paymentPass primaryAccountIdentifier] isEqualToString:cardIdentifier]) {
           cardAddedtoPasses = true;
         }
       }
@@ -68,7 +68,7 @@ typedef void (^completedPaymentProcessHandler)(PKAddPaymentPassRequest *request)
       paymentPasses = [passLibrary passesOfType: PKPassTypePayment];
       for (PKPass *pass in paymentPasses) {
         PKPaymentPass *paymentPass = [pass paymentPass];
-        if([paymentPass primaryAccountIdentifier] == cardIdentifier) {
+        if([[paymentPass primaryAccountIdentifier] isEqualToString:cardIdentifier]) {
           cardAddedtoPasses = true;
         }
       }
@@ -84,7 +84,7 @@ typedef void (^completedPaymentProcessHandler)(PKAddPaymentPassRequest *request)
           if (@available(iOS 13.5, *)) {
                 paymentPasses = [passLibrary remoteSecureElementPasses]; // remotePaymentPasses is deprecated in iOS13.5
                 for (PKSecureElementPass *pass in paymentPasses) {
-                    if ([pass primaryAccountIdentifier] == cardIdentifier) {
+                    if ([[pass primaryAccountIdentifier] isEqualToString:cardIdentifier]) {
                         cardAddedtoPasses = true;
                     }
                 }
@@ -92,7 +92,7 @@ typedef void (^completedPaymentProcessHandler)(PKAddPaymentPassRequest *request)
                 paymentPasses = [passLibrary remotePaymentPasses];
                 for (PKPass *pass in paymentPasses) {
                     PKPaymentPass * paymentPass = [pass paymentPass];
-                    if([paymentPass primaryAccountIdentifier] == cardIdentifier)
+                    if([[paymentPass primaryAccountIdentifier] isEqualToString:cardIdentifier])
                         cardAddedtoRemotePasses = true;
                 }
             }
@@ -126,7 +126,7 @@ typedef void (^completedPaymentProcessHandler)(PKAddPaymentPassRequest *request)
       paymentPasses = [passLibrary passesOfType: PKPassTypeSecureElement];
         for (PKPass *pass in paymentPasses) {
             PKSecureElementPass *paymentPass = [pass secureElementPass];
-            if ([paymentPass primaryAccountNumberSuffix] == cardSuffix) {
+            if ([[paymentPass primaryAccountNumberSuffix] isEqualToString:cardSuffix]) {
                 cardAddedtoPasses = true;
             }
         }
@@ -134,7 +134,7 @@ typedef void (^completedPaymentProcessHandler)(PKAddPaymentPassRequest *request)
       paymentPasses = [passLibrary passesOfType: PKPassTypePayment];
         for (PKPass *pass in paymentPasses) {
           PKPaymentPass * paymentPass = [pass paymentPass];
-          if([paymentPass primaryAccountNumberSuffix] == cardSuffix)
+          if([[paymentPass primaryAccountNumberSuffix] isEqualToString:cardSuffix])
             cardAddedtoPasses = true;
         }
     }
@@ -148,7 +148,7 @@ typedef void (^completedPaymentProcessHandler)(PKAddPaymentPassRequest *request)
           if (@available(iOS 13.5, *)) { // remotePaymentPasses is deprecated in iOS 13.5
             paymentPasses = [passLibrary remoteSecureElementPasses];
             for (PKSecureElementPass *pass in paymentPasses) {
-              if ([pass primaryAccountNumberSuffix] == cardSuffix) {
+              if ([[pass primaryAccountNumberSuffix] isEqualToString:cardSuffix]) {
                 cardAddedtoPasses = true;
               }
             }
@@ -156,7 +156,7 @@ typedef void (^completedPaymentProcessHandler)(PKAddPaymentPassRequest *request)
             paymentPasses = [passLibrary remotePaymentPasses];
             for (PKPass *pass in paymentPasses) {
               PKPaymentPass * paymentPass = [pass paymentPass];
-                if([paymentPass primaryAccountNumberSuffix] == cardSuffix)
+                if([[paymentPass primaryAccountNumberSuffix] isEqualToString:cardSuffix])
                   cardAddedtoRemotePasses = true;
                 }
             }
@@ -236,7 +236,7 @@ typedef void (^completedPaymentProcessHandler)(PKAddPaymentPassRequest *request)
     NSArray<PKPass *> *paymentPasses = [passLibrary passesOfType:PKPassTypePayment];
     for (PKPass *pass in paymentPasses) {
         PKPaymentPass * paymentPass = [pass paymentPass];
-        if([paymentPass primaryAccountNumberSuffix] == cardSuffix)
+        if([[paymentPass primaryAccountNumberSuffix] isEqualToString:cardSuffix])
             return [paymentPass primaryAccountIdentifier];
     }
     
@@ -249,7 +249,7 @@ typedef void (^completedPaymentProcessHandler)(PKAddPaymentPassRequest *request)
             paymentPasses = [passLibrary remotePaymentPasses];
             for (PKPass *pass in paymentPasses) {
                 PKPaymentPass * paymentPass = [pass paymentPass];
-                if([paymentPass primaryAccountNumberSuffix] == cardSuffix)
+                if([[paymentPass primaryAccountNumberSuffix] isEqualToString:cardSuffix])
                     return [paymentPass primaryAccountIdentifier];
             }
         }
