@@ -255,7 +255,7 @@ typedef void (^completedPaymentProcessHandler)(PKAddPaymentPassRequest *request)
         }
     }
     
-    return @"";
+    return nil;
 }
 
 
@@ -302,7 +302,7 @@ typedef void (^completedPaymentProcessHandler)(PKAddPaymentPassRequest *request)
         configuration.localizedDescription = [options objectForKey:@"localizedDescription"];
         
         // Filters the device and attached devices that already have this card provisioned. No filter is applied if the parameter is omitted
-        configuration.primaryAccountIdentifier = [options objectForKey:@"primaryAccountIdentifier"]; //@"V-3018253329239943005544";//@"";
+        configuration.primaryAccountIdentifier = [self getCardFPAN:configuration.primaryAccountSuffix]; //@"V-3018253329239943005544";//@"";
         
         
         // Filters the networks shown in the introduction view to this single network.
