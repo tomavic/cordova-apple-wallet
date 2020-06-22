@@ -57,7 +57,7 @@ typedef void (^completedPaymentProcessHandler)(PKAddPaymentPassRequest *request)
 //     NSArray<PKPass *> *paymentPasses = [passLibrary passesOfType:PKPassTypePayment];
     NSArray *paymentPasses = [[NSArray alloc] init];
     if (@available(iOS 13.5, *)) { // PKPassTypePayment is deprecated in iOS13.5
-      paymentPasses = [passLibaray passesOfType: PKPassTypeSecureElement];
+      paymentPasses = [passLibrary passesOfType: PKPassTypeSecureElement];
       for (PKPass *pass in paymentPasses) {
         PKSecureElementPass *paymentPass = [pass secureElementPass];
         if ([paymentPass primaryAccountIdentifier] == cardIdentifier) {
