@@ -181,10 +181,12 @@ This method provides the data needed to create a request to add your payment pas
      * Use the callback response JSON payload to complete addition process
      * Expect
      * res = {
-     *   "certificateSubCA":"Base64 string represents certificateSubCA",
-     *   "certificateLeaf":"Base64 string represents certificateLeaf"
-     *   "nonce":"Base64 string represents nonce",
-     *   "nonceSignature":"Base64 string represents nonceSignature",
+     *   "data": {
+     *     "certificateSubCA":"Base64 string represents certificateSubCA",
+     *     "certificateLeaf":"Base64 string represents certificateLeaf"
+     *     "nonce":"Base64 string represents nonce",
+     *     "nonceSignature":"Base64 string represents nonceSignature",
+     *   }
      * }
      */
     })
