@@ -107,7 +107,7 @@ Simple call to determine if the current device supports Apple Pay and has a supp
 ```
 ---
 
-### ✔️ Card Eligibility
+### Card Eligibility
 
 
 #### 1 - Check Card Eligibility
@@ -152,7 +152,7 @@ __cardSuffix__ (String) The card number suffix ex: last 4 or 6 digits
 ---
 
 
-### ✔️ Card Addition
+### Card Addition
 
 Simple call with the configuration data needed to instantiate a new PKAddPaymentPassViewController object.
 
@@ -193,7 +193,7 @@ In order to get testing data check this [Apple Sandbox](https://developer.apple.
 
 ---
 
-### ✔️ Card Addition Callback Delegate
+### Card Addition Callback Delegate
 
 Simple completion handler that takes encrypted card data returned from your server side, in order to get the final response from Apple to know if the card is added succesfully or not.
 
@@ -224,7 +224,7 @@ Simple completion handler that takes encrypted card data returned from your serv
 
 
 
-### ✔️ Paired Devices
+### Paired Devices
 
 #### 1 - Check Paired Devices
 
