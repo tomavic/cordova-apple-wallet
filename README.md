@@ -297,10 +297,7 @@ MIT
 
 Made with ❤️❤️ . 
 
- I am always happy to hear your feedback.
-
-[Twitter](https://twitter.com/toomavic) 
-
+I am always happy to hear your feedback [@Twitter](https://twitter.com/toomavic) 
 
 Enjoy!
 
