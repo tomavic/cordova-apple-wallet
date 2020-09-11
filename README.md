@@ -1,14 +1,44 @@
+<a href="https://www.npmjs.com/package/cordova-apple-wallet">
+    <h1 align="center">Cordova Apple Wallet</h1>
+</a>
+
+<p align="center">
+Best way to integrate apple wallet into your mobile app. Cordova Apple Wallet let you add your credit/debit cards to Apple Wallet through your mobile app. It also can check if the credit/debit card exists in Wallet or any paired device e.g. Apple Watch ⌚
+</p>
+
 ![alt text](./banner.png)
 
-# cordova-apple-wallet
 
-This plugin provides support for adding your credit/debit cards to Apple Wallet. It also can check if the credit/debit card exists in Wallet or any paired device e.g. Apple Watch ⌚
+## Table of contents
+1. [Getting Started](#getting-started)
+2. [Supporting](#supporting-cordova-apple-wallet)
+3. [Installation instructions](#installation-instructions)
+4. [How to use](#how-to-use) 
+5. [API](#api)
+6. [Demo](#demo)
+7. [Contributing](#contributing)
+8. [License](#license)
+9. [Credits](#credits)
 
-👉 **Important Note**
 
-> Adding payment passes requires a special entitlement issued by Apple. Your app must include this entitlement before you can use this class. For more information on requesting this entitlement, see the Card Issuers section at developer.apple.com/apple-pay/.
+## Getting Started
 
-## Installation
+**Attention** Adding payment passes requires a special entitlement issued by Apple. Your app must include this entitlement before you can use this class. 
+For more information on requesting this entitlement, see the Card Issuers section at [here](developer.apple.com/apple-pay).
+
+For more technical information, please check Apple Developer documentation from [here](https://developer.apple.com/documentation/passkit/pkaddpaymentpassviewcontrollerdelegate/1615915-addpaymentpassviewcontroller?language=objc) and <a href="https://developer.apple.com/design/human-interface-guidelines/apple-pay/overview/offering-apple-pay/">Here</a>,
+
+
+## Supporting cordova-apple-wallet
+cordova-apple-wallet is an Open Source (MIT Licensed) project, it's an independent project with ongoing development made possible thanks to the support of our awesome collaborators.
+
+If you think that any information you obtained here is worth of some money and are willing to pay for it, you can give me a cup of coffee ☕ 😉
+
+
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=hbasheer%40live.com&item_name=Business&currency_code=USD&source=url)
+
+
+## Installation instructions
 
 ### Ionic 3 and above
 
@@ -28,9 +58,10 @@ Or the latest version:
 
 
 
----
+## How to use 
 
-## How to use (Ionic Framework)
+
+### (Ionic Framework)
 
 - For Ionic 3 full example check from 👉 [here](https://ionicframework.com/docs/v3/native/apple-wallet/) 
 
@@ -40,10 +71,22 @@ Or the latest version:
 
 ---
 
-## How to use (Vanilla JS)
+### (Vanilla JS)
 
 
 👉 **NOTE**: _In order to use it with normal cordova based project, please define a global variable, so that you can use it without lint errors_ `var AppleWallet = AppleWallet || {};`
+
+
+## API
+
+
+1. [Availability](#apple-wallet-availability)
+2. [Eligibility](#card-eligibility) 
+3. [Card Addition](#card-addition)
+4. [Paired Devices](#paired-devices) (🎁 NEW)
+
+
+
 
 ### ✔️ Apple Wallet Availability
 
@@ -107,57 +150,6 @@ __cardSuffix__ (String) The card number suffix ex: last 4 or 6 digits
 ```
 
 ---
-
-
-### ✔️ Paired Devices
-
-#### 1 - Check Paired Devices
-
-Simple call to check out if there is any paired Watches so that you can toggle visibility of 'Add to Watch' button
-
-```javascript
-    AppleWallet.checkPairedDevices()
-    .then((res) => {
-    /**
-     * Expect
-     * res = {
-     *   isWatchPaired: boolean
-     * }
-     */
-    })
-    .catch((err) => {
-      // Catch {{err}} here
-    });
-```
-
-
-#### 2 - Check Paired Devices By Suffix
-
-Simple call to check paired devices with a card by its suffix
-##### Parameters
-
-__cardSuffix__ (String) The card number suffix ex: last 4 or 6 digits
-
-```javascript
-    AppleWallet.checkPairedDevicesBySuffix(cardSuffix)
-    .then((res) => {
-    /**
-     * object contains boolean values that ensure that card is already exists in wallet or paired-watch
-     * Expect
-     * res = {
-     *    isInWallet: boolean
-     *    isInWatch: boolean
-     *    FPANID: string
-     * }
-     * */
-    })
-    .catch((err) => {
-      // Catch {{err}} here
-    });
-```
-
----
-
 
 
 ### ✔️ Card Addition
@@ -230,9 +222,62 @@ Simple completion handler that takes encrypted card data returned from your serv
     });
 ```
 
-## Support
 
-For more information, please check Apple Developer documentation from [here](https://developer.apple.com/documentation/passkit/pkaddpaymentpassviewcontrollerdelegate/1615915-addpaymentpassviewcontroller?language=objc)
+
+### ✔️ Paired Devices
+
+#### 1 - Check Paired Devices
+
+Simple call to check out if there is any paired Watches so that you can toggle visibility of 'Add to Watch' button
+
+```javascript
+    AppleWallet.checkPairedDevices()
+    .then((res) => {
+    /**
+     * Expect
+     * res = {
+     *   isWatchPaired: boolean
+     * }
+     */
+    })
+    .catch((err) => {
+      // Catch {{err}} here
+    });
+```
+
+
+#### 2 - Check Paired Devices By Suffix
+
+Simple call to check paired devices with a card by its suffix
+##### Parameters
+
+__cardSuffix__ (String) The card number suffix ex: last 4 or 6 digits
+
+```javascript
+    AppleWallet.checkPairedDevicesBySuffix(cardSuffix)
+    .then((res) => {
+    /**
+     * object contains boolean values that ensure that card is already exists in wallet or paired-watch
+     * Expect
+     * res = {
+     *    isInWallet: boolean
+     *    isInWatch: boolean
+     *    FPANID: string
+     * }
+     * */
+    })
+    .catch((err) => {
+      // Catch {{err}} here
+    });
+```
+
+---
+
+
+
+## Demo
+
+Soon..
 
 ## Contributing
 
@@ -248,17 +293,15 @@ For more information, please check Apple Developer documentation from [here](htt
 MIT
 
 
-## Donate 
-
-
-If you think that any information you obtained here is worth of some money and are willing to pay for it, you can give me a cup of coffee ☕ 😉
-
-
-[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=hbasheer%40live.com&item_name=Business&currency_code=USD&source=url)
-
 ## Credits
 
-Made with ❤️ by Hatem. Follow me on [Twitter](https://twitter.com/toomavic) to get the latest news first! I will be happy to receive your feedback via [Email](hbasheer@live.com) ! I am always happy to hear your feedback.
+Made with ❤️❤️ . 
+
+ I am always happy to hear your feedback.
+
+[Twitter](https://twitter.com/toomavic) 
+
+
 Enjoy!
 
 
@@ -267,4 +310,6 @@ Enjoy!
     ░░░░░░░░░░█░░░░░░▀█▄▀▄▀██████░░░▀█▄▀▄▀██████ 
     ░░░░░░░░ ░░░░░░░░░░▀█▄█▄███▀░░░░░░▀█▄█▄███▀░
 
-   All copyrights reserved | Enigma Labs © | 2020
+   All copyrights reserved | 2018-2020
+
+
