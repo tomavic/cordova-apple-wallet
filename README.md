@@ -35,7 +35,7 @@ cordova-apple-wallet is an Open Source (MIT Licensed) project, it's an independe
 If you think that any information you obtained here is worth of some money and are willing to pay for it, you can give me a cup of coffee ☕ 😉
 
 
-[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=hbasheer%40live.com&item_name=Business&currency_code=USD&source=url)
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/paypalme/enigmalabs)
 
 
 ## Installation instructions
@@ -281,11 +281,32 @@ Soon..
 
 ## Contributing
 
+
+I greatly appreciate anyone taking the time to help make Cordova Apple Wallet plugin better.
+
+### Development
+
+
 1. Fork it
+2. clone the repo onto your local machine.
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+
+
+### Pull Request Etiquette
+
+If this is purely a README update, you can skip everything below.
+
+ - You need to include explaination for what have been done in the Pull request description section.
+ - You may include a screenshoot as well if it is required.
+ - You need to assign me as a Reviewer and Assignee
+
+Thank you, and happy coding!
+
+🎉🎉🎉 Thank you for contributing! 🎉🎉🎉
 
 
 ## License
