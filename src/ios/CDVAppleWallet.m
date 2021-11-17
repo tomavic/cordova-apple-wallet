@@ -296,7 +296,7 @@ typedef void (^completedPaymentProcessHandler)(PKAddPaymentPassRequest *request)
         configuration.cardholderName = [options objectForKey:@"cardholderName"];
         
         // Last 4/5 digits of PAN. The last four or five digits of the PAN. Presented to the user with dots prepended to indicate that it is a suffix.
-        configuration.primaryAccountSuffix = [options objectForKey:@"primaryAccountSuffix"];
+        configuration.primaryAccountSuffix = [options objectForKey:@"primaryAccountNumberSuffix"];
         
         // A short description of the card.
         configuration.localizedDescription = [options objectForKey:@"localizedDescription"];
