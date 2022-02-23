@@ -85,7 +85,7 @@ typedef void (^completedPaymentProcessHandler)(PKAddPaymentPassRequest *request)
                 paymentPasses = [passLibrary remoteSecureElementPasses]; // remotePaymentPasses is deprecated in iOS13.5
                 for (PKSecureElementPass *pass in paymentPasses) {
                     if ([[pass primaryAccountIdentifier] isEqualToString:cardIdentifier]) {
-                        cardAddedtoPasses = true;
+                        cardAddedtoRemotePasses = true;
                     }
                 }
             } else {
@@ -149,7 +149,7 @@ typedef void (^completedPaymentProcessHandler)(PKAddPaymentPassRequest *request)
             paymentPasses = [passLibrary remoteSecureElementPasses];
             for (PKSecureElementPass *pass in paymentPasses) {
               if ([[pass primaryAccountNumberSuffix] isEqualToString:cardSuffix]) {
-                cardAddedtoPasses = true;
+                cardAddedtoRemotePasses = true;
               }
             }
           } else {
