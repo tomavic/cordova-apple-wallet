@@ -15,22 +15,21 @@ Best way to integrate apple wallet into your mobile app. Cordova Apple Wallet le
 3. [Installation instructions](#installation-instructions)
 4. [How to use](#how-to-use) 
 5. [API](#api)
-6. [Demo](#demo)
-7. [Contributing](#contributing)
-8. [License](#license)
-9. [Credits](#credits)
+6. [Contributing](#contributing)
+7. [License](#license)
+8. [Credits](#credits)
 
 
 ## Getting Started
 
 **Attention** Adding payment passes requires a special entitlement issued by Apple. Your app must include this entitlement before you can use this class. 
-For more information on requesting this entitlement, see the Card Issuers section at [here](developer.apple.com/apple-pay).
+For more information on requesting this entitlement, see the Card Issuers section at [Apple Pay for issuers](https://developer.apple.com/apple-pay/).
 
 For more technical information, please check Apple Developer documentation from [here](https://developer.apple.com/documentation/passkit/pkaddpaymentpassviewcontrollerdelegate/1615915-addpaymentpassviewcontroller?language=objc) and <a href="https://developer.apple.com/design/human-interface-guidelines/apple-pay/overview/offering-apple-pay/">Here</a>,
 
 
 ## Supporting cordova-apple-wallet
-cordova-apple-wallet is an Open Source (MIT Licensed) project, it's an independent project with ongoing development made possible thanks to the support of our awesome collaborators.
+cordova-apple-wallet is an open source project (Apache-2.0), it's an independent project with ongoing development made possible thanks to the support of our awesome collaborators.
 
 If you think that any information you obtained here is worth of some money and are willing to pay for it, you can give me a cup of coffee ☕ 😉
 
@@ -40,11 +39,15 @@ If you think that any information you obtained here is worth of some money and a
 
 ## Installation instructions
 
-### Ionic 3 and above
+### Ionic / Angular
 
-In order to use it with Ionic 3, please follow this [instructions](https://ionicframework.com/docs/native/apple-wallet/)
+Use the typed wrapper from [Awesome Cordova Plugins](https://www.npmjs.com/package/@awesome-cordova-plugins/apple-wallet) (the project formerly known as Ionic Native):
 
-### Phonegap
+  ```shell
+  npm install cordova-apple-wallet @awesome-cordova-plugins/apple-wallet @awesome-cordova-plugins/core
+  ```
+
+### Cordova
 
   ```shell
   cordova plugin add cordova-apple-wallet --save
@@ -61,12 +64,21 @@ Or the latest version:
 ## How to use 
 
 
-### (Ionic Framework)
+### (Ionic / Angular)
 
-- For Ionic 3 full example check from 👉 [here](https://ionicframework.com/docs/v3/native/apple-wallet/) 
+```typescript
+import { inject } from '@angular/core';
+import { AppleWallet } from '@awesome-cordova-plugins/apple-wallet/ngx';
 
+// provide AppleWallet in your app config, then:
+private readonly appleWallet = inject(AppleWallet);
 
-- Ionic 4+ full example check from 👉 [here](https://ionicframework.com/docs/v3/native/apple-wallet/) 
+async canAddCard(): Promise<boolean> {
+  return this.appleWallet.isAvailable();
+}
+```
+
+Every method below is available on the wrapper with the same name and arguments.
 
 
 ---
@@ -275,10 +287,6 @@ __cardSuffix__ (String) The card number suffix ex: last 4 or 6 digits
 
 
 
-## Demo
-
-Soon..
-
 ## Contributing
 
 1. Fork it
@@ -290,23 +298,9 @@ Soon..
 
 ## License
 
-MIT
+[Apache-2.0](./LICENSE)
 
 
 ## Credits
 
-Made with ❤️❤️ . 
-
-I am always happy to hear your feedback [@Twitter](https://twitter.com/toomavic) 
-
-Enjoy!
-
-
-
-    ░░░░░░░░░░░░░▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄ 
-    ░░░░░░░░░░█░░░░░░▀█▄▀▄▀██████░░░▀█▄▀▄▀██████ 
-    ░░░░░░░░ ░░░░░░░░░░▀█▄█▄███▀░░░░░░▀█▄█▄███▀░
-
-   All copyrights reserved | 2018-2020
-
-
+Feedback is welcome on [X](https://x.com/toomavic) or in [issues](https://github.com/tomavic/cordova-apple-wallet/issues).
